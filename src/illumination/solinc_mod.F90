@@ -72,7 +72,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
 character(len=*), parameter :: RoutineName='SOLINC'
 
 
-IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! orog_corr is equal to the cosine of the angle between the incoming
 ! solar insolation and the normal to the mean slope, divided by
@@ -133,6 +133,6 @@ if (l_shading) then
 end if
 end if
 
-IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 end subroutine solinc
 end module solinc_mod

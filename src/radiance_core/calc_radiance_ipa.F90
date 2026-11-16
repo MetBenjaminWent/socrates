@@ -66,7 +66,7 @@ SUBROUTINE calc_radiance_ipa(                                           &
   USE rad_pcf, ONLY: ip_infra_red, ip_solar, ip_sph_mode_flux,          &
                      ip_sph_reduced_iter, ip_sph_mode_rad
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE sph_solver_mod, ONLY: sph_solver
 
@@ -360,7 +360,7 @@ SUBROUTINE calc_radiance_ipa(                                           &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='CALC_RADIANCE_IPA'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Zero the output arrays ready for incrementing.
   IF (i_sph_mode == ip_sph_mode_flux) THEN
@@ -717,7 +717,7 @@ SUBROUTINE calc_radiance_ipa(                                           &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_radiance_ipa
 END MODULE calc_radiance_ipa_mod

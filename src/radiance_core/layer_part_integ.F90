@@ -44,7 +44,7 @@ SUBROUTINE layer_part_integ(                                            &
   USE rad_pcf, ONLY: ip_infra_red, ip_solar
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -160,7 +160,7 @@ SUBROUTINE layer_part_integ(                                            &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='LAYER_PART_INTEG'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   upm_c=0.0
 
@@ -388,7 +388,7 @@ SUBROUTINE layer_part_integ(                                            &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE layer_part_integ
 END MODULE layer_part_integ_mod

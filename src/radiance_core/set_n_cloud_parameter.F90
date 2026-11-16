@@ -27,7 +27,7 @@ FUNCTION set_n_cloud_parameter(i_scheme, i_component, n_phase_term)
                      ip_slingo_schrecker_ice, ip_sun_shine_vn2_ir,      &
                      ip_sun_shine_vn2_vis, ip_ice_pade_2_phf
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -51,7 +51,7 @@ FUNCTION set_n_cloud_parameter(i_scheme, i_component, n_phase_term)
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SET_N_CLOUD_PARAMETER'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, RoutineName)
 
   IF ( (i_component == ip_clcmp_st_water).OR.                           &
        (i_component == ip_clcmp_cnv_water) ) THEN
@@ -104,5 +104,5 @@ FUNCTION set_n_cloud_parameter(i_scheme, i_component, n_phase_term)
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 END FUNCTION set_n_cloud_parameter

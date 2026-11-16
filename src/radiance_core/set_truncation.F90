@@ -29,7 +29,7 @@ SUBROUTINE set_truncation(ierr                                          &
   USE rad_pcf, ONLY: i_err_fatal, ip_trunc_adaptive, ip_trunc_azim_sym, &
                      ip_trunc_rhombohedral, ip_trunc_triangular
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -80,7 +80,7 @@ SUBROUTINE set_truncation(ierr                                          &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'SET_TRUNCATION'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Carry out a preliminary check that the truncation is appropriate.
   IF ( (i_truncation == ip_trunc_azim_sym).AND.                         &
@@ -187,7 +187,7 @@ SUBROUTINE set_truncation(ierr                                          &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE set_truncation
 END MODULE set_truncation_mod

@@ -29,7 +29,7 @@ SUBROUTINE single_scattering(i_scatter_method_band                      &
   USE rad_pcf, ONLY: ip_no_scatter_abs, ip_no_scatter_ext,              &
                      ip_scatter_approx, ip_scatter_full
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -104,7 +104,7 @@ SUBROUTINE single_scattering(i_scatter_method_band                      &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SINGLE_SCATTERING'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the tolerances used in avoiding ill-conditioning, testing
 ! on any variable.
@@ -163,7 +163,7 @@ SUBROUTINE single_scattering(i_scatter_method_band                      &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE single_scattering
 END MODULE single_scattering_mod

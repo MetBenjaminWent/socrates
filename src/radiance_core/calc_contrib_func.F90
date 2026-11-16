@@ -25,7 +25,7 @@ SUBROUTINE calc_contrib_func(n_profile, n_layer, n_cloud_top                   &
   USE def_ss_prop, ONLY: str_ss_prop
   USE parkind1, ONLY: jprb, jpim
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
 
   IMPLICIT NONE
   
@@ -63,7 +63,7 @@ SUBROUTINE calc_contrib_func(n_profile, n_layer, n_cloud_top                   &
   INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'CALC_CONTRIB_FUNC'
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Initialise optical depth at top-of-atmosphere
   tau_clr_sum(1:n_profile, 0) = 0.0_RealK
@@ -100,7 +100,7 @@ SUBROUTINE calc_contrib_func(n_profile, n_layer, n_cloud_top                   &
     END DO
   END DO
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_contrib_func
 END MODULE calc_contrib_func_mod

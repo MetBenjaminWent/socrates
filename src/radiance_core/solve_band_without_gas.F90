@@ -90,7 +90,7 @@ SUBROUTINE solve_band_without_gas(ierr                                  &
                      ip_spherical_harmonic, ip_scatter_hybrid, &
                      ip_scatter_full
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE augment_radiance_mod, ONLY: augment_radiance
   USE augment_tiled_radiance_mod, ONLY: augment_tiled_radiance
@@ -449,7 +449,7 @@ SUBROUTINE solve_band_without_gas(ierr                                  &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLVE_BAND_WITHOUT_GAS'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the appropriate total upward and downward fluxes
 ! at the boundaries.
@@ -645,7 +645,7 @@ SUBROUTINE solve_band_without_gas(ierr                                  &
       )
   END IF
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solve_band_without_gas
 END MODULE solve_band_without_gas_mod

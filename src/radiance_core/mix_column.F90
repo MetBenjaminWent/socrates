@@ -69,7 +69,7 @@ SUBROUTINE mix_column(ierr                                              &
                      ip_solver_mix_direct_hogan, ip_solar, ip_infra_red,&
                      i_err_fatal
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -289,7 +289,7 @@ SUBROUTINE mix_column(ierr                                              &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'MIX_COLUMN'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the pointers to the various types of transition.
   i_ovp_dn_ff=3*k_clr-2
@@ -550,7 +550,7 @@ SUBROUTINE mix_column(ierr                                              &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE mix_column
 END MODULE mix_column_mod

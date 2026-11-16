@@ -23,7 +23,7 @@ SUBROUTINE gas_optical_properties(n_profile, n_layer                    &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -73,7 +73,7 @@ SUBROUTINE gas_optical_properties(n_profile, n_layer                    &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='GAS_OPTICAL_PROPERTIES'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Calculate the absorption for the first gas and add on the rest.
   !$acc parallel loop gang vector collapse(3)
@@ -94,7 +94,7 @@ SUBROUTINE gas_optical_properties(n_profile, n_layer                    &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE gas_optical_properties
 END MODULE gas_optical_properties_mod

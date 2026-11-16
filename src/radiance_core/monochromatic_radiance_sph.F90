@@ -75,7 +75,7 @@ SUBROUTINE monochromatic_radiance_sph(ierr                              &
                      ip_cloud_triple, ip_cloud_part_corr,               &
                      ip_cloud_part_corr_cnv, ip_cloud_column_max
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -332,7 +332,7 @@ SUBROUTINE monochromatic_radiance_sph(ierr                              &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'MONOCHROMATIC_RADIANCE_SPH'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Split the method of solution according to the cloud scheme.
   IF (i_cloud == ip_cloud_clear) THEN
@@ -516,7 +516,7 @@ SUBROUTINE monochromatic_radiance_sph(ierr                              &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE monochromatic_radiance_sph
 END MODULE monochromatic_radiance_sph_mod

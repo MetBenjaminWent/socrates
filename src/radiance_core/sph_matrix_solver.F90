@@ -28,7 +28,7 @@ SUBROUTINE sph_matrix_solver(n_matrix, n_step, n_block                  &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -108,7 +108,7 @@ SUBROUTINE sph_matrix_solver(n_matrix, n_step, n_block                  &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SPH_MATRIX_SOLVER'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Eliminative phase:
   i_step=1
@@ -272,7 +272,7 @@ SUBROUTINE sph_matrix_solver(n_matrix, n_step, n_block                  &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE sph_matrix_solver
 END MODULE sph_matrix_solver_mod

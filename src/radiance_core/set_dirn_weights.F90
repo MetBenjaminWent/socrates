@@ -38,7 +38,7 @@ SUBROUTINE set_dirn_weights(n_profile                                   &
   USE rad_pcf, ONLY: i_err_fatal, ip_infra_red, ip_solar
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -219,7 +219,7 @@ SUBROUTINE set_dirn_weights(n_profile                                   &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'SET_DIRN_WEIGHTS'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the tolerances used in avoiding ill-conditioning, testing
 ! on any variable.
@@ -625,7 +625,7 @@ SUBROUTINE set_dirn_weights(n_profile                                   &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE set_dirn_weights
 END MODULE set_dirn_weights_mod

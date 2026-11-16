@@ -38,7 +38,7 @@ SUBROUTINE mixed_solar_source(control, bound                            &
                      ip_scf_solar_down, ip_scf_solar_up
   USE parkind1, ONLY: jprb, jpim
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
 
   IMPLICIT NONE
 
@@ -151,7 +151,7 @@ SUBROUTINE mixed_solar_source(control, bound                            &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='MIXED_SOLAR_SOURCE'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! The clear and cloudy direct fluxes are calculated separately
 ! and added together to form the total direct flux.
@@ -392,7 +392,7 @@ SUBROUTINE mixed_solar_source(control, bound                            &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE mixed_solar_source
 END MODULE mixed_solar_source_mod

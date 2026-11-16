@@ -27,7 +27,7 @@ SUBROUTINE eval_uplm(ms, n_max_order, n_direction, x                    &
   USE realtype_rd, ONLY: RealK
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -76,7 +76,7 @@ SUBROUTINE eval_uplm(ms, n_max_order, n_direction, x                    &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='EVAL_UPLM'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Start the recurrence for Y_mm.
   product=1.0e+00_RealK
@@ -122,7 +122,7 @@ SUBROUTINE eval_uplm(ms, n_max_order, n_direction, x                    &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE eval_uplm
 END MODULE eval_uplm_mod

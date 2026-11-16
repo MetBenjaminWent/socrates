@@ -24,7 +24,7 @@ SUBROUTINE spherical_solar_source(bound, sph_common, sph_comp,                 &
   USE rad_pcf,                ONLY: ip_scf_solar_up, ip_scf_solar_down
   USE parkind1,               ONLY: jprb, jpim
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
 
   IMPLICIT NONE
 
@@ -89,7 +89,7 @@ SUBROUTINE spherical_solar_source(bound, sph_common, sph_comp,                 &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SPHERICAL_SOLAR_SOURCE'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (l_scale_solar) THEN
 !   The solar flux may be multiplied by a scaling factor if an
@@ -156,7 +156,7 @@ SUBROUTINE spherical_solar_source(bound, sph_common, sph_comp,                 &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE spherical_solar_source
 END MODULE spherical_solar_source_mod

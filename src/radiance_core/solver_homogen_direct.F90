@@ -24,7 +24,7 @@ SUBROUTINE solver_homogen_direct(n_profile, n_layer                     &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -87,7 +87,7 @@ SUBROUTINE solver_homogen_direct(n_profile, n_layer                     &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLVER_HOMOGEN_DIRECT'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Eliminating loop:
   DO i=n_layer+1, 1, -1
@@ -130,7 +130,7 @@ SUBROUTINE solver_homogen_direct(n_profile, n_layer                     &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solver_homogen_direct
 END MODULE solver_homogen_direct_mod

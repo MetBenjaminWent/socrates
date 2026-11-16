@@ -26,7 +26,7 @@ SUBROUTINE set_cloud_geometry(n_profile, n_layer                        &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -77,7 +77,7 @@ SUBROUTINE set_cloud_geometry(n_profile, n_layer                        &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SET_CLOUD_GEOMETRY'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO i=id_ct, n_layer
     n_cloud_profile(i)=0
@@ -100,7 +100,7 @@ SUBROUTINE set_cloud_geometry(n_profile, n_layer                        &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE set_cloud_geometry
 END MODULE set_cloud_geometry_mod

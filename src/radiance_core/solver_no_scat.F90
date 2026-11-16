@@ -20,7 +20,7 @@ SUBROUTINE solver_no_scat(n_profile, n_layer                            &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -68,7 +68,7 @@ SUBROUTINE solver_no_scat(n_profile, n_layer                            &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLVER_NO_SCAT'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Downward fluxes.
   DO l=1, n_profile
@@ -92,7 +92,7 @@ SUBROUTINE solver_no_scat(n_profile, n_layer                            &
     END DO
   END DO
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solver_no_scat
 END MODULE solver_no_scat_mod

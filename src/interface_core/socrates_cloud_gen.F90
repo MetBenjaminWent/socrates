@@ -172,7 +172,7 @@ implicit none
 !     Minimum cloud fraction
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   ! Generate random seeds for each sub-column
   do il=il1, il2
@@ -230,7 +230,7 @@ implicit none
 
   ! If no cloudy layers in any GCM column then exit
   if (k_top == 0) then
-    IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+    IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
     return
   end if
 
@@ -471,6 +471,6 @@ implicit none
     n_subcol_cld(il) = i_loc(il)-1
   end do
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 end subroutine cloud_gen
 end module socrates_cloud_gen

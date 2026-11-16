@@ -21,7 +21,7 @@ SUBROUTINE spherical_trans_coeff(                                              &
   USE vectlib_mod,            ONLY: exp_v
   USE parkind1,               ONLY: jprb, jpim
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
 
   IMPLICIT NONE
 
@@ -59,7 +59,7 @@ SUBROUTINE spherical_trans_coeff(                                              &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SPHERICAL_TRANS_COEFF'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO ii=0, n_layer+1
     DO l=1, n_profile
@@ -82,7 +82,7 @@ SUBROUTINE spherical_trans_coeff(                                              &
     END IF
   END DO
   
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE spherical_trans_coeff
 END MODULE spherical_trans_coeff_mod

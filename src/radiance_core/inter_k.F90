@@ -34,7 +34,7 @@ SUBROUTINE inter_k(n_profile, n_layer, n_band_absorb                    &
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: ip_cont_h2o, ip_cont_o2n2_2
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -167,7 +167,7 @@ SUBROUTINE inter_k(n_profile, n_layer, n_band_absorb                    &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='INTER_K'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 
   IF (l_continuum .AND. ( n_continuum  /=  0 ) ) THEN
@@ -278,6 +278,6 @@ SUBROUTINE inter_k(n_profile, n_layer, n_band_absorb                    &
 
   END IF
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 END SUBROUTINE inter_k
 END MODULE inter_k_mod

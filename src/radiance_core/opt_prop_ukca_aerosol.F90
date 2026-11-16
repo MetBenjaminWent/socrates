@@ -34,7 +34,7 @@ SUBROUTINE opt_prop_ukca_aerosol(                                       &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -122,7 +122,7 @@ SUBROUTINE opt_prop_ukca_aerosol(                                       &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='OPT_PROP_UKCA_AEROSOL'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO j=1, n_ukca_mode
 
@@ -202,7 +202,7 @@ SUBROUTINE opt_prop_ukca_aerosol(                                       &
   END DO ! j
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE opt_prop_ukca_aerosol
 END MODULE opt_prop_ukca_aerosol_mod

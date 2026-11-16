@@ -29,7 +29,7 @@ SUBROUTINE monochromatic_ir_radiance(n_profile, n_layer                 &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -92,7 +92,7 @@ SUBROUTINE monochromatic_ir_radiance(n_profile, n_layer                 &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='MONOCHROMATIC_IR_RADIANCE'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the tolerances used in avoiding ill-conditioning, testing
 ! on any variable.
@@ -138,7 +138,7 @@ SUBROUTINE monochromatic_ir_radiance(n_profile, n_layer                 &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE monochromatic_ir_radiance
 END MODULE monochromatic_ir_radiance_mod

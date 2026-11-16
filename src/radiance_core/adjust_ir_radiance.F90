@@ -24,7 +24,7 @@ SUBROUTINE adjust_ir_radiance(control, spectrum, atm, radout, &
                      ip_two_stream, ip_sph_mode_rad
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -64,7 +64,7 @@ SUBROUTINE adjust_ir_radiance(control, spectrum, atm, radout, &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='ADJUST_IR_RADIANCE'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (control%l_map_sub_bands) THEN
     ! Adjust the fluxes with sub-bands mapping to channels
@@ -165,7 +165,7 @@ SUBROUTINE adjust_ir_radiance(control, spectrum, atm, radout, &
 
   END IF
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 
 CONTAINS

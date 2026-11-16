@@ -72,7 +72,7 @@ SUBROUTINE triple_column(ierr                                           &
                      ip_solver_triple, ip_solver_triple_hogan,          &
                      ip_solver_triple_app_scat
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -254,7 +254,7 @@ SUBROUTINE triple_column(ierr                                           &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'TRIPLE_COLUMN'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the number of source coefficients for the approximation
   n_source_coeff=set_n_source_coeff(isolir, l_ir_source_quad)
@@ -566,7 +566,7 @@ SUBROUTINE triple_column(ierr                                           &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE triple_column
 END MODULE triple_column_mod

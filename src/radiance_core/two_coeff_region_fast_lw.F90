@@ -30,7 +30,7 @@ SUBROUTINE two_coeff_region_fast_lw(ierr                                &
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: i_err_fatal, ip_infra_red, ip_region_clear
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -143,7 +143,7 @@ SUBROUTINE two_coeff_region_fast_lw(ierr                                &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'TWO_COEFF_REGION_FAST_LW'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! This routine should not be used outside the IR.
   IF (isolir /= ip_infra_red) THEN
@@ -293,7 +293,7 @@ SUBROUTINE two_coeff_region_fast_lw(ierr                                &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE two_coeff_region_fast_lw
 END MODULE two_coeff_region_fast_lw_mod

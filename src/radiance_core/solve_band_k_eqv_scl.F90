@@ -100,7 +100,7 @@ SUBROUTINE solve_band_k_eqv_scl(ierr &
   USE diffusivity_factor, ONLY: diffusivity_factor_minor
   USE vectlib_mod, ONLY: exp_v
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE augment_radiance_mod, ONLY: augment_radiance
   USE augment_tiled_radiance_mod, ONLY: augment_tiled_radiance
@@ -564,7 +564,7 @@ SUBROUTINE solve_band_k_eqv_scl(ierr &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLVE_BAND_K_EQV_SCL'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   i_abs=index_abs(1)
 
@@ -1336,7 +1336,7 @@ SUBROUTINE solve_band_k_eqv_scl(ierr &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solve_band_k_eqv_scl
 END MODULE solve_band_k_eqv_scl_mod

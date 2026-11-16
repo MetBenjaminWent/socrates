@@ -50,7 +50,7 @@ SUBROUTINE calc_brdf(isolir, ms_min, ms_max                             &
   USE rad_pcf, ONLY: ip_solar, ip_infra_red
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE eval_uplm_mod, ONLY: eval_uplm
 
@@ -158,7 +158,7 @@ SUBROUTINE calc_brdf(isolir, ms_min, ms_max                             &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='CALC_BRDF'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (isolir == ip_solar) THEN
 
@@ -286,7 +286,7 @@ SUBROUTINE calc_brdf(isolir, ms_min, ms_max                             &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_brdf
 END MODULE calc_brdf_mod

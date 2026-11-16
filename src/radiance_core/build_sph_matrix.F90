@@ -87,7 +87,7 @@ SUBROUTINE build_sph_matrix(i_sph_algorithm, euler_factor               &
                      ip_sph_reduced_iter 
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE calc_surf_rad_mod, ONLY: calc_surf_rad
   USE calc_top_rad_mod, ONLY: calc_top_rad
@@ -369,7 +369,7 @@ SUBROUTINE build_sph_matrix(i_sph_algorithm, euler_factor               &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='BUILD_SPH_MATRIX'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Initialize the matrix.
   DO ie=1, 2*n_layer*n_red_eigensystem
@@ -940,7 +940,7 @@ SUBROUTINE build_sph_matrix(i_sph_algorithm, euler_factor               &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE build_sph_matrix
 END MODULE build_sph_matrix_mod

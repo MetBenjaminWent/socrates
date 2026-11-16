@@ -35,7 +35,7 @@ SUBROUTINE orbprm(day, year, l_sec_var, lcal360, e, gamph, oblq, mean_anomaly)
 USE realtype_rd, ONLY: RealK
 USE rad_ccf, ONLY: pi
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_MOCI
+USE vernier_timing_mod, ONLY: LPROF_SOCRATES
 USE parkind1, ONLY: jprb, jpim
 USE astro_constants_mod , ONLY:                                    &
     a, b, c, d, date_ve_dflt, e_dflt, f, g, gn_prcs_cnst, h,       &
@@ -91,7 +91,7 @@ CHARACTER(LEN=*), PARAMETER :: RoutineName='ORBPRM'
 ! Astronomical Parameters: from astro_constants_mod
 
 
-IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! The length of the calendar year may be set for a 360-day calendar
 !  (as is often used in climate runs),
@@ -240,6 +240,6 @@ ELSE
 END IF
 
 
-IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 END SUBROUTINE orbprm
 END MODULE orbprm_mod

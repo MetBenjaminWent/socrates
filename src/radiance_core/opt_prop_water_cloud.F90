@@ -51,7 +51,7 @@ SUBROUTINE opt_prop_water_cloud(ierr                                    &
                      ip_slingo_schr_phf
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -206,7 +206,7 @@ SUBROUTINE opt_prop_water_cloud(ierr                                    &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'OPT_PROP_WATER_CLOUD'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF ( (n_order_phase == 1) .AND.                                       &
     (i_parametrization_drop == ip_drop_pade_2) .AND.                    &
@@ -651,7 +651,7 @@ SUBROUTINE opt_prop_water_cloud(ierr                                    &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE opt_prop_water_cloud
 END MODULE opt_prop_water_cloud_mod

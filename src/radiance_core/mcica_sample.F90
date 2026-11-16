@@ -99,7 +99,7 @@ SUBROUTINE mcica_sample(ierr                                            &
     ip_no_scatter_abs, ip_no_scatter_ext, ip_direct_csr_scaling, &
     i_err_fatal
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -447,7 +447,7 @@ SUBROUTINE mcica_sample(ierr                                            &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='MCICA_SAMPLE'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO m=cld%first_subcol_k(i_band,iex), cld%first_subcol_k(i_band,iex+1)-1
 
@@ -928,7 +928,7 @@ SUBROUTINE mcica_sample(ierr                                            &
     END DO
   END IF
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE mcica_sample
 END MODULE mcica_sample_mod

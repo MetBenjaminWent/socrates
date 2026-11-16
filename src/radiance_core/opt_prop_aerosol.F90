@@ -51,7 +51,7 @@ SUBROUTINE opt_prop_aerosol(ierr                                        &
                      ip_aerosol_unparametrized, ip_aersrc_arcl_ron,     &
                      ip_aersrc_classic_ron, ip_aersrc_cusack_ron
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -267,7 +267,7 @@ SUBROUTINE opt_prop_aerosol(ierr                                        &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'OPT_PROP_AEROSOL'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO j_mr=1, n_aerosol_mr
 
@@ -794,7 +794,7 @@ SUBROUTINE opt_prop_aerosol(ierr                                        &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE opt_prop_aerosol
 END MODULE opt_prop_aerosol_mod

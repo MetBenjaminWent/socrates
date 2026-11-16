@@ -99,7 +99,7 @@ SUBROUTINE solve_band_random_overlap_resort_rebin(ierr                         &
   USE rad_pcf, ONLY: ip_solar, ip_infra_red, ip_spherical_harmonic,            &
                      ip_two_stream, ip_ir_gauss
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE augment_radiance_mod, ONLY: augment_radiance
   USE augment_tiled_radiance_mod, ONLY: augment_tiled_radiance
@@ -539,7 +539,7 @@ SUBROUTINE solve_band_random_overlap_resort_rebin(ierr                         &
     = 'SOLVE_BAND_RANDOM_OVERLAP_RESORT_REBIN'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
   
 ! Set target weights using Gaussian quadrature
   n_esft_red = n_esft_red_in
@@ -547,7 +547,7 @@ SUBROUTINE solve_band_random_overlap_resort_rebin(ierr                         &
     IF (control%l_map_sub_bands) THEN
       ! Not compatible with sub-band mapping
       ierr = 1
-      IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+      IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
       RETURN
     END IF
     CALL calc_gauss_weight_90(ierr, n_esft_red,                                &
@@ -838,7 +838,7 @@ SUBROUTINE solve_band_random_overlap_resort_rebin(ierr                         &
     
   END DO
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solve_band_random_overlap_resort_rebin
 END MODULE solve_band_random_overlap_resort_rebin_mod

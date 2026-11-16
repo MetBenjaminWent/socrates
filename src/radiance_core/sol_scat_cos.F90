@@ -28,7 +28,7 @@ SUBROUTINE sol_scat_cos(n_profile, n_direction                          &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -71,7 +71,7 @@ SUBROUTINE sol_scat_cos(n_profile, n_direction                          &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOL_SCAT_COS'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO id=1, n_direction
     DO l=1, n_profile
@@ -83,7 +83,7 @@ SUBROUTINE sol_scat_cos(n_profile, n_direction                          &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE sol_scat_cos
 END MODULE sol_scat_cos_mod

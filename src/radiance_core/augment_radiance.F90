@@ -51,7 +51,7 @@ SUBROUTINE augment_radiance(control, sp, atm, bound, radout             &
   USE rad_pcf, ONLY: ip_solar, ip_spherical_harmonic, ip_two_stream,    &
                      ip_ir_gauss, ip_sph_mode_flux, ip_sph_mode_rad
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -200,7 +200,7 @@ SUBROUTINE augment_radiance(control, sp, atm, bound, radout             &
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='AUGMENT_RADIANCE'
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (control%l_map_sub_bands) THEN
     ! Increment the fluxes with sub-bands mapping to channels
@@ -949,7 +949,7 @@ SUBROUTINE augment_radiance(control, sp, atm, bound, radout             &
 
   END IF
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE augment_radiance
 END MODULE augment_radiance_mod

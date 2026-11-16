@@ -27,7 +27,7 @@ SUBROUTINE cloud_maxcs_split(ierr, n_profile, n_layer, n_cloud_top      &
   USE rad_pcf, ONLY: i_err_fatal, i_normal, ip_cloud_type_conv,         &
                      ip_cloud_type_strat
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -135,7 +135,7 @@ SUBROUTINE cloud_maxcs_split(ierr, n_profile, n_layer, n_cloud_top      &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'CLOUD_MAXCS_SPLIT'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the tolerance used for clouds.
   tol_cloud=1.0e+04_RealK*EPSILON(tol_cloud)
@@ -329,7 +329,7 @@ SUBROUTINE cloud_maxcs_split(ierr, n_profile, n_layer, n_cloud_top      &
     CALL ereport(RoutineName, ierr, cmessage)
   END IF
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE cloud_maxcs_split
 END MODULE cloud_maxcs_split_mod

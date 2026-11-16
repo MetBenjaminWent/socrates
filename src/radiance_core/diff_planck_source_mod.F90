@@ -32,7 +32,7 @@ SUBROUTINE diff_planck_source(control, dimen, spectrum, atm, bound, &
   USE rad_pcf,      ONLY: ip_spherical_harmonic, ip_surf_alb_diff
   USE rad_ccf,      ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1,     ONLY: jprb, jpim
 
   USE planck_flux_band_mod, ONLY: planck_flux_band
@@ -82,7 +82,7 @@ SUBROUTINE diff_planck_source(control, dimen, spectrum, atm, bound, &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='DIFF_PLANCK_SOURCE'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (control%i_angular_integration == ip_spherical_harmonic) THEN
 !   Calculate the Planckian radiance on viewing levels.
@@ -194,7 +194,7 @@ SUBROUTINE diff_planck_source(control, dimen, spectrum, atm, bound, &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE diff_planck_source
 END MODULE diff_planck_source_mod

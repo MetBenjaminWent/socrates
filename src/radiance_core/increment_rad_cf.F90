@@ -40,7 +40,7 @@ SUBROUTINE increment_rad_cf(n_profile                                   &
                      ip_sph_mode_j, ip_sph_mode_rad, ip_sph_reduced_iter
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -183,7 +183,7 @@ SUBROUTINE increment_rad_cf(n_profile                                   &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='INCREMENT_RAD_CF'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (i_sph_algorithm == ip_sph_direct) THEN
 
@@ -309,7 +309,7 @@ SUBROUTINE increment_rad_cf(n_profile                                   &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE increment_rad_cf
 END MODULE increment_rad_cf_mod

@@ -52,7 +52,7 @@ SUBROUTINE augment_channel( &
                      ip_sph_mode_j
 
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -153,7 +153,7 @@ SUBROUTINE augment_channel( &
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='AUGMENT_CHANNEL'
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (l_initial_channel(i_channel)) THEN
 !   Initialization of the radiance field takes place here.
@@ -675,7 +675,7 @@ SUBROUTINE augment_channel( &
     END IF
   END IF
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE augment_channel
 END MODULE augment_channel_mod

@@ -27,7 +27,7 @@ SUBROUTINE band_solver(n_matrix, n_equation                             &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -82,7 +82,7 @@ SUBROUTINE band_solver(n_matrix, n_equation                             &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='BAND_SOLVER'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   iu1=iu+1
 ! Eliminative phase.
@@ -143,7 +143,7 @@ SUBROUTINE band_solver(n_matrix, n_equation                             &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE band_solver
 END MODULE band_solver_mod

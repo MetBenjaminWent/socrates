@@ -21,7 +21,7 @@ SUBROUTINE ses_rescale_contm(nd_profile, nd_layer                       &
   USE rad_pcf, ONLY: ip_cont_h2o, ip_cont_o4
   USE rad_ccf, ONLY: mol_weight_air, n_avogadro, k_boltzmann
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -75,7 +75,7 @@ SUBROUTINE ses_rescale_contm(nd_profile, nd_layer                       &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SES_RESCALE_CONTM'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   k_m_air=k_boltzmann*mol_weight_air
   IF (i_continuum  ==  ip_cont_h2o ) THEN
@@ -107,6 +107,6 @@ SUBROUTINE ses_rescale_contm(nd_profile, nd_layer                       &
     END DO
   END IF
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 END SUBROUTINE ses_rescale_contm
 END MODULE ses_rescale_contm_mod

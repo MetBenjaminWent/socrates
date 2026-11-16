@@ -32,7 +32,7 @@ SUBROUTINE two_coeff_fast_lw(n_profile                                  &
   USE vectlib_mod, ONLY: exp_v
   USE rad_pcf, ONLY: ip_scf_ir_1d,ip_scf_ir_2d
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -104,7 +104,7 @@ SUBROUTINE two_coeff_fast_lw(n_profile                                  &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='TWO_COEFF_FAST_LW'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the tolerances used in avoiding ill-conditioning, testing
 ! on any variable.
@@ -153,7 +153,7 @@ SUBROUTINE two_coeff_fast_lw(n_profile                                  &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE two_coeff_fast_lw
 END MODULE two_coeff_fast_lw_mod

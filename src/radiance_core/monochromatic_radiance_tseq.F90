@@ -71,7 +71,7 @@ SUBROUTINE monochromatic_radiance_tseq(ierr                             &
                      ip_cloud_part_corr, ip_cloud_part_corr_cnv,        &
                      ip_cloud_column_max
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE calc_actinic_flux_mod, ONLY: calc_actinic_flux
   USE calc_flux_ipa_mod, ONLY: calc_flux_ipa
@@ -287,7 +287,7 @@ SUBROUTINE monochromatic_radiance_tseq(ierr                             &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='MONOCHROMATIC_RADIANCE_TSEQ'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Choose an appropriate routine to calculate the fluxes as
 ! determined by the cloud scheme selected.
@@ -590,7 +590,7 @@ SUBROUTINE monochromatic_radiance_tseq(ierr                             &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE monochromatic_radiance_tseq
 END MODULE monochromatic_radiance_tseq_mod

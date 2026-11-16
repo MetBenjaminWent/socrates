@@ -28,7 +28,7 @@ SUBROUTINE trans_source_coeff(control, n_profile                        &
                      ip_direct_csr_scaling, ip_scf_ir_1d, ip_scf_ir_2d
   USE vectlib_mod, ONLY : exp_v
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE def_control, ONLY: StrCtrl
 
@@ -136,7 +136,7 @@ SUBROUTINE trans_source_coeff(control, n_profile                        &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='TRANS_SOURCE_COEFF'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the tolerances used in avoiding ill-conditioning, testing
 ! on any variable.
@@ -262,7 +262,7 @@ SUBROUTINE trans_source_coeff(control, n_profile                        &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE trans_source_coeff
 END MODULE trans_source_coeff_mod

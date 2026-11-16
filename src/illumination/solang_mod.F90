@@ -25,7 +25,7 @@ USE realtype_rd, ONLY: RealK
 USE rad_ccf, ONLY: pi, seconds_per_day
 USE parkind1, ONLY: jprb, jpim
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_MOCI
+USE vernier_timing_mod, ONLY: LPROF_SOCRATES
 USE def_orbit, ONLY: StrOrbit, &
   ip_spin_user, ip_spin_earth_day, ip_spin_fixed_sun
 
@@ -100,7 +100,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
 CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLANG'
 
 
-IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 SELECT CASE (orbit%i_spin)
 CASE (ip_spin_user)
@@ -245,6 +245,6 @@ ELSE
 
 END IF
 
-IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 END SUBROUTINE solang
 END MODULE solang_mod

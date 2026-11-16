@@ -48,7 +48,7 @@ SUBROUTINE set_level_weights(i                                          &
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: ip_infra_red, ip_solar
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -179,7 +179,7 @@ SUBROUTINE set_level_weights(i                                          &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SET_LEVEL_WEIGHTS'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO WHILE (l_assign)
 
@@ -299,7 +299,7 @@ SUBROUTINE set_level_weights(i                                          &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE set_level_weights
 END MODULE set_level_weights_mod

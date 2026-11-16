@@ -31,7 +31,7 @@ SUBROUTINE two_coeff_basic(ierr                                         &
                      ip_meador_weaver, ip_pifm80, ip_pifm85, ip_zdk_flux
   USE diffusivity_factor, ONLY: elsasser_factor
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -93,7 +93,7 @@ SUBROUTINE two_coeff_basic(ierr                                         &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'TWO_COEFF_BASIC'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (i_2stream == ip_eddington) THEN
     DO i=i_layer_first, i_layer_last
@@ -204,7 +204,7 @@ SUBROUTINE two_coeff_basic(ierr                                         &
   END IF
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE two_coeff_basic
 END MODULE two_coeff_basic_mod

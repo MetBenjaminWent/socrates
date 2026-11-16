@@ -34,7 +34,7 @@ SUBROUTINE cg_kappa_ms(ms, ls_trunc, ls_brdf_trunc                      &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -79,7 +79,7 @@ SUBROUTINE cg_kappa_ms(ms, ls_trunc, ls_brdf_trunc                      &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='CG_KAPPA_MS'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Consider first the case where l+m is even. In this case the
 ! documented formula is applied directly, with the omission
@@ -113,7 +113,7 @@ SUBROUTINE cg_kappa_ms(ms, ls_trunc, ls_brdf_trunc                      &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE cg_kappa_ms
 END MODULE cg_kappa_ms_mod

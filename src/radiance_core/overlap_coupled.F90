@@ -41,7 +41,7 @@ SUBROUTINE overlap_coupled(n_profile, n_layer, n_cloud_top              &
                      ip_cloud_triple, ip_region_clear, ip_region_conv,  &
                      ip_region_strat
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_MOCI
+  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -145,7 +145,7 @@ SUBROUTINE overlap_coupled(n_profile, n_layer, n_cloud_top              &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='OVERLAP_COUPLED'
 
 
-  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   tol_cloud=1.0e+02_RealK*EPSILON(tol_cloud)
 
@@ -447,7 +447,7 @@ SUBROUTINE overlap_coupled(n_profile, n_layer, n_cloud_top              &
   END DO
 
 
-  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
+  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE overlap_coupled
 END MODULE overlap_coupled_mod
