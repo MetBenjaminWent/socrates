@@ -40,7 +40,8 @@ SUBROUTINE overlap_coupled(n_profile, n_layer, n_cloud_top              &
                      ip_cloud_part_corr, ip_cloud_part_corr_cnv,        &
                      ip_cloud_triple, ip_region_clear, ip_region_conv,  &
                      ip_region_strat
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -139,14 +140,12 @@ SUBROUTINE overlap_coupled(n_profile, n_layer, n_cloud_top              &
     , tol_cloud
 !       Tolerance used to detect cloud amounts of 0
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='OVERLAP_COUPLED'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   tol_cloud=1.0e+02_RealK*EPSILON(tol_cloud)
 
@@ -448,7 +447,7 @@ SUBROUTINE overlap_coupled(n_profile, n_layer, n_cloud_top              &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE overlap_coupled
 END MODULE overlap_coupled_mod

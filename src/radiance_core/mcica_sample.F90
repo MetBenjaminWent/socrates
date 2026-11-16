@@ -98,7 +98,8 @@ SUBROUTINE mcica_sample(ierr                                            &
     ip_cloud_combine_homogen, ip_cloud_combine_ice_water, &
     ip_no_scatter_abs, ip_no_scatter_ext, ip_direct_csr_scaling, &
     i_err_fatal
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -441,14 +442,12 @@ SUBROUTINE mcica_sample(ierr                                            &
 
   REAL (RealK), PARAMETER :: eps=EPSILON(ss_prop%k_ext_scat)
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=errormessagelength) :: cmessage
   CHARACTER(LEN=*), PARAMETER :: RoutineName='MCICA_SAMPLE'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO m=cld%first_subcol_k(i_band,iex), cld%first_subcol_k(i_band,iex+1)-1
 
@@ -929,7 +928,7 @@ SUBROUTINE mcica_sample(ierr                                            &
     END DO
   END IF
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE mcica_sample
 END MODULE mcica_sample_mod

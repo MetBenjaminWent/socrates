@@ -25,7 +25,8 @@ SUBROUTINE set_moist_aerosol_properties(ierr                            &
 
   USE realtype_rd, ONLY: RealK
   USE rad_pcf
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
 
@@ -94,14 +95,12 @@ SUBROUTINE set_moist_aerosol_properties(ierr                            &
     , mix_ratio_clr(nd_profile, nd_layer)
 !       Humidity mixing ratio of the clear-sky part of the grid-box
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=256)           :: cmessage
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'SET_MOIST_AEROSOL_PROPERTIES'
 
 
-  IF (lhook) CALL dr_hook(RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, RoutineName)
 
 ! Set up array of pointers to `include' the effects of humidity.
 ! Calculate the saturated mixing ratio.
@@ -170,6 +169,6 @@ SUBROUTINE set_moist_aerosol_properties(ierr                            &
   END DO
 
 
-  IF (lhook) CALL dr_hook(RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE set_moist_aerosol_properties

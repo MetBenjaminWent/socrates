@@ -33,7 +33,8 @@ SUBROUTINE scale_absorb(ierr, n_profile, n_layer                        &
                      ip_scale_dbl_pow_quad, ip_scale_wenyi
   USE vectlib_mod, ONLY : rtor_v
   USE scale_wenyi, ONLY: plg, ttb, tto, gk250b, gk4, gk6
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -103,14 +104,12 @@ SUBROUTINE scale_absorb(ierr, n_profile, n_layer                        &
   INTEGER :: n_input      ! No. of inputs for rtor_v function
   REAL (RealK) :: tmp, t_inv, p_ref_off_inv
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=errormessagelength)           :: cmessage
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'SCALE_ABSORB'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the offset to the pressure for the Doppler correction.
   IF (l_doppler) THEN
@@ -170,7 +169,7 @@ SUBROUTINE scale_absorb(ierr, n_profile, n_layer                        &
 
   ELSE IF (i_fnc == ip_scale_fnc_null) THEN
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
     RETURN
 
   ELSE IF (i_fnc == ip_scale_power_quad) THEN
@@ -281,7 +280,7 @@ SUBROUTINE scale_absorb(ierr, n_profile, n_layer                        &
     CALL ereport(RoutineName, ierr, cmessage)
   END IF
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE scale_absorb
 END MODULE scale_absorb_mod

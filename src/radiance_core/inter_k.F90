@@ -33,7 +33,8 @@ SUBROUTINE inter_k(n_profile, n_layer, n_band_absorb                    &
 
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: ip_cont_h2o, ip_cont_o2n2_2
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -161,14 +162,12 @@ SUBROUTINE inter_k(n_profile, n_layer, n_band_absorb                    &
      , ib
 !        Band index for mixed gases
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='INTER_K'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 
   IF (l_continuum .AND. ( n_continuum  /=  0 ) ) THEN
@@ -279,6 +278,6 @@ SUBROUTINE inter_k(n_profile, n_layer, n_band_absorb                    &
 
   END IF
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 END SUBROUTINE inter_k
 END MODULE inter_k_mod

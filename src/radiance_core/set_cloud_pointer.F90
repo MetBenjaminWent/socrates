@@ -36,7 +36,8 @@ SUBROUTINE set_cloud_pointer(ierr                                       &
    ip_cloud_type_sw, ip_cloud_type_si, &
    ip_cloud_type_cw, ip_cloud_type_ci, &
    ip_phase_water, ip_phase_ice
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -81,14 +82,12 @@ SUBROUTINE set_cloud_pointer(ierr                                       &
       k
 !       Loop variable
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=errormessagelength) :: cmessage
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'SET_CLOUD_POINTER'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO k=1, n_condensed
 
@@ -176,7 +175,7 @@ SUBROUTINE set_cloud_pointer(ierr                                       &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE set_cloud_pointer
 END MODULE set_cloud_pointer_mod

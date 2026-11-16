@@ -26,7 +26,8 @@ SUBROUTINE eval_uplm(ms, n_max_order, n_direction, x                    &
 
   USE realtype_rd, ONLY: RealK
   USE rad_ccf, ONLY: pi
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -70,14 +71,12 @@ SUBROUTINE eval_uplm(ms, n_max_order, n_direction, x                    &
     , product
 !       Factorial terms in Y_lm
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='EVAL_UPLM'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Start the recurrence for Y_mm.
   product=1.0e+00_RealK
@@ -123,7 +122,7 @@ SUBROUTINE eval_uplm(ms, n_max_order, n_direction, x                    &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE eval_uplm
 END MODULE eval_uplm_mod

@@ -32,7 +32,8 @@ SUBROUTINE two_coeff_cloud(ierr, control                                &
   USE def_spherical_geometry, ONLY: StrSphGeo
   USE rad_pcf, ONLY: ip_solar, ip_direct_noscaling,                     &
                      ip_direct_csr_scaling
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE def_control, ONLY: StrCtrl 
   USE two_coeff_mod, ONLY: two_coeff
@@ -161,14 +162,12 @@ SUBROUTINE two_coeff_cloud(ierr, control                                &
     , path_div_gathered(nd_profile, 1)
 !       Gathered path scaling for calculating direct flux divergence
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='TWO_COEFF_CLOUD'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Initialize the full arrays.
   DO i=i_layer_first, i_layer_last
@@ -307,7 +306,7 @@ SUBROUTINE two_coeff_cloud(ierr, control                                &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE two_coeff_cloud
 END MODULE two_coeff_cloud_mod

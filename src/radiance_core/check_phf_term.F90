@@ -40,7 +40,8 @@ SUBROUTINE check_phf_term(ierr                                          &
                      ip_ps_size_phf, ip_slingo_schr_ice_phf,            &
                      ip_slingo_schr_phf, ip_slingo_schrecker,           &
                      ip_slingo_schrecker_ice, ip_ice_pade_2_phf
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -123,14 +124,12 @@ SUBROUTINE check_phf_term(ierr                                          &
     , n_order_required
 !       Order of terms which are required in the phase function
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=errormessagelength)           :: cmessage
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'CHECK_PHF_TERM'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Determine the order of terms for which information in the
 ! phase function will be required.
@@ -244,7 +243,7 @@ SUBROUTINE check_phf_term(ierr                                          &
     CALL ereport(RoutineName, ierr, cmessage)
   END IF
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE check_phf_term
 END MODULE check_phf_term_mod

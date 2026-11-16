@@ -50,7 +50,8 @@ SUBROUTINE augment_radiance(control, sp, atm, bound, radout             &
   USE finalise_photol_incr_mod, ONLY:  finalise_photol_incr
   USE rad_pcf, ONLY: ip_solar, ip_spherical_harmonic, ip_two_stream,    &
                      ip_ir_gauss, ip_sph_mode_flux, ip_sph_mode_rad
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -195,13 +196,11 @@ SUBROUTINE augment_radiance(control, sp, atm, bound, radout             &
   LOGICAL :: l_calc_sub_band
 !       Flag to calculate increments for a particular sub-band
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='AUGMENT_RADIANCE'
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (control%l_map_sub_bands) THEN
     ! Increment the fluxes with sub-bands mapping to channels
@@ -950,7 +949,7 @@ SUBROUTINE augment_radiance(control, sp, atm, bound, radout             &
 
   END IF
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE augment_radiance
 END MODULE augment_radiance_mod

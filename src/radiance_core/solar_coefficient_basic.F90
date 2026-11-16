@@ -24,7 +24,8 @@ SUBROUTINE solar_coefficient_basic(control                              &
   USE rad_pcf, ONLY: i_err_fatal, ip_2s_test, ip_discrete_ord,          &
                      ip_eddington, ip_elsasser, ip_hemi_mean, ip_pifm80,&
                      ip_pifm85
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE def_control, ONLY: StrCtrl
   USE ereport_mod, ONLY: ereport
@@ -108,16 +109,14 @@ SUBROUTINE solar_coefficient_basic(control                              &
 !       The tolerance used to judge where the two-stream
 !       expressions for the solar source become ill-conditioned
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   INTEGER :: ierr
   CHARACTER (LEN=errormessagelength) :: cmessage
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'SOLAR_COEFFICIENT_BASIC'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the tolerances used in avoiding ill-conditioning, testing
 ! on any variable.
@@ -219,7 +218,7 @@ SUBROUTINE solar_coefficient_basic(control                              &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solar_coefficient_basic
 END MODULE solar_coefficient_basic_mod

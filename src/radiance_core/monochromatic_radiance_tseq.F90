@@ -70,7 +70,8 @@ SUBROUTINE monochromatic_radiance_tseq(ierr                             &
                      ip_cloud_mix_max, ip_cloud_mix_random,             &
                      ip_cloud_part_corr, ip_cloud_part_corr_cnv,        &
                      ip_cloud_column_max
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE calc_actinic_flux_mod, ONLY: calc_actinic_flux
   USE calc_flux_ipa_mod, ONLY: calc_flux_ipa
@@ -281,14 +282,12 @@ SUBROUTINE monochromatic_radiance_tseq(ierr                             &
   REAL(RealK), ALLOCATABLE :: tau_abs(:, :)
 !       Temporary array for the optical depth due to absorption
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='MONOCHROMATIC_RADIANCE_TSEQ'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Choose an appropriate routine to calculate the fluxes as
 ! determined by the cloud scheme selected.
@@ -591,7 +590,7 @@ SUBROUTINE monochromatic_radiance_tseq(ierr                             &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE monochromatic_radiance_tseq
 END MODULE monochromatic_radiance_tseq_mod

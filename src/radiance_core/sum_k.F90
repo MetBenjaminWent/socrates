@@ -22,7 +22,8 @@ SUBROUTINE sum_k(ierr, n_profile, n_layer                                      &
 
   USE realtype_rd, ONLY: RealK
   USE rad_pcf,     ONLY: i_err_fatal
-  USE yomhook,     ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1,    ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -74,14 +75,12 @@ SUBROUTINE sum_k(ierr, n_profile, n_layer                                      &
       l_weights_match
 !       Flag indicating if the k-term weights match
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=errormessagelength)           :: cmessage
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'SUM_K'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   l_weights_match = .FALSE.
   IF (n_abs_esft == n_add_esft) THEN
@@ -100,7 +99,7 @@ SUBROUTINE sum_k(ierr, n_profile, n_layer                                      &
     CALL ereport(RoutineName, ierr, cmessage)
   END IF
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE sum_k
 END MODULE sum_k_mod

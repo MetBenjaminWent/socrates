@@ -30,7 +30,8 @@ SUBROUTINE eig_sys(n_profile, ls_trunc, ms, n_red_eigensystem           &
 
 
   USE realtype_rd, ONLY: RealK
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE eigenvalue_tri_mod, ONLY: eigenvalue_tri
 
@@ -97,14 +98,12 @@ SUBROUTINE eig_sys(n_profile, ls_trunc, ms, n_red_eigensystem           &
 !       Multiplier to convert the terms of the scaled recurrence
 !       to the the final quantities
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='EIG_SYS'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the tolerance for convergence of the algorithm from the
 ! precision of the machine.
@@ -224,7 +223,7 @@ SUBROUTINE eig_sys(n_profile, ls_trunc, ms, n_red_eigensystem           &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE eig_sys
 END MODULE eig_sys_mod

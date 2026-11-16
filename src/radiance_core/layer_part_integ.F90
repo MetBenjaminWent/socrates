@@ -43,7 +43,8 @@ SUBROUTINE layer_part_integ(                                            &
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: ip_infra_red, ip_solar
   USE rad_ccf, ONLY: pi
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -154,14 +155,12 @@ SUBROUTINE layer_part_integ(                                            &
     , const
 !       A 'working' constant
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='LAYER_PART_INTEG'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   upm_c=0.0
 
@@ -389,7 +388,7 @@ SUBROUTINE layer_part_integ(                                            &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE layer_part_integ
 END MODULE layer_part_integ_mod

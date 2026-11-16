@@ -75,7 +75,8 @@ SUBROUTINE grey_opt_prop(ierr, control, radout, i_band                  &
                      ip_cairns, ip_cloud_mcica, ip_cloud_type_si,       &
                      ip_cloud_type_sw, ip_direct_csr_scaling,           &
                      ip_phase_ice, ip_phase_water
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -431,15 +432,13 @@ SUBROUTINE grey_opt_prop(ierr, control, radout, i_band                  &
 
   REAL (RealK), PARAMETER :: tiny_k=TINY(ss_prop%k_ext_scat)
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER (LEN=errormessagelength)           :: cmessage
   CHARACTER(LEN=*), PARAMETER :: RoutineName='GREY_OPT_PROP'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! If using a separate solar phase function that must be initialized.
   IF (l_solar_phf) THEN
@@ -966,7 +965,7 @@ SUBROUTINE grey_opt_prop(ierr, control, radout, i_band                  &
 
     END IF
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
     RETURN
 
   END IF
@@ -1538,7 +1537,7 @@ SUBROUTINE grey_opt_prop(ierr, control, radout, i_band                  &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE grey_opt_prop
 END MODULE grey_opt_prop_mod

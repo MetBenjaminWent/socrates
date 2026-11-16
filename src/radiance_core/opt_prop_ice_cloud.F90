@@ -53,7 +53,8 @@ SUBROUTINE opt_prop_ice_cloud(ierr                                      &
                      ip_ice_fu_ir, ip_ice_adt_10, ip_ice_adt,           &
                      ip_sun_shine_vn2_vis, ip_ice_pade_2_phf
   USE rad_ccf, ONLY: pi
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -215,14 +216,12 @@ SUBROUTINE opt_prop_ice_cloud(ierr                                      &
 !       Product of the scattering and the current moment of
 !       the phase function
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=errormessagelength)           :: cmessage
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'OPT_PROP_ICE_CLOUD'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 
   IF ( (n_order_phase == 1) .AND.                                       &
@@ -947,7 +946,7 @@ SUBROUTINE opt_prop_ice_cloud(ierr                                      &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE opt_prop_ice_cloud
 END MODULE opt_prop_ice_cloud_mod

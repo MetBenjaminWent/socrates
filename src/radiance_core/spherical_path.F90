@@ -19,7 +19,8 @@ USE def_atm,                ONLY: StrAtm
 USE def_bound,              ONLY: StrBound
 USE def_spherical_geometry, ONLY: StrSphGeo
 USE parkind1,               ONLY: jprb, jpim
-USE yomhook,                ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_MOCI
 
 IMPLICIT NONE
 
@@ -51,14 +52,12 @@ REAL :: recip_layer_depth(dimen%nd_profile, dimen%nd_layer)
 REAL :: path_upper, path_lower, path_weight
 !   Limiting paths and weight when the impact parameter is in the layer
 
-INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
 CHARACTER(LEN=*), PARAMETER :: RoutineName='SPHERICAL_PATH'
 
 
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! First deal with the path for beams leaving the top-of-atmosphere (TOA).
 ! Only consider radiation from below.
@@ -248,7 +247,7 @@ DO ii = 0, atm%n_layer+1
   END DO
 END DO
 
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE spherical_path
 END MODULE spherical_path_mod

@@ -99,7 +99,8 @@ SUBROUTINE solve_band_k_eqv_scl(ierr &
                      ip_cloud_mcica, ip_scatter_hybrid, ip_scatter_full
   USE diffusivity_factor, ONLY: diffusivity_factor_minor
   USE vectlib_mod, ONLY: exp_v
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE augment_radiance_mod, ONLY: augment_radiance
   USE augment_tiled_radiance_mod, ONLY: augment_tiled_radiance
@@ -558,14 +559,12 @@ SUBROUTINE solve_band_k_eqv_scl(ierr &
   REAL (RealK), PARAMETER :: trans_strong = 0.999
 !       Parameters to determine if minor gases may be treated as grey absorbers
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLVE_BAND_K_EQV_SCL'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   i_abs=index_abs(1)
 
@@ -1337,7 +1336,7 @@ SUBROUTINE solve_band_k_eqv_scl(ierr &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solve_band_k_eqv_scl
 END MODULE solve_band_k_eqv_scl_mod

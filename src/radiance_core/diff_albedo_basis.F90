@@ -31,7 +31,8 @@ SUBROUTINE diff_albedo_basis(n_brdf_basis_fnc                           &
 
   USE realtype_rd, ONLY: RealK
   USE rad_ccf, ONLY: pi
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -84,14 +85,12 @@ SUBROUTINE diff_albedo_basis(n_brdf_basis_fnc                           &
     , sum_p(nd_brdf_trunc+1)
 !       Sum of products of the BRDF and factors over l'
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='DIFF_ALBEDO_BASIS'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO j=1, n_brdf_basis_fnc
     diffuse_alb_basis(j)=0.0e+00_RealK
@@ -118,7 +117,7 @@ SUBROUTINE diff_albedo_basis(n_brdf_basis_fnc                           &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE diff_albedo_basis
 END MODULE diff_albedo_basis_mod

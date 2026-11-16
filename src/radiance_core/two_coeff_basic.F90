@@ -30,7 +30,8 @@ SUBROUTINE two_coeff_basic(ierr                                         &
                      ip_elsasser, ip_hemi_mean, ip_ifm, ip_krschg_flux, &
                      ip_meador_weaver, ip_pifm80, ip_pifm85, ip_zdk_flux
   USE diffusivity_factor, ONLY: elsasser_factor
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -87,14 +88,12 @@ SUBROUTINE two_coeff_basic(ierr                                         &
       root_3 = 1.7320508075688772e+00_RealK
 !       Square root of 3
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=errormessagelength)           :: cmessage
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'TWO_COEFF_BASIC'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (i_2stream == ip_eddington) THEN
     DO i=i_layer_first, i_layer_last
@@ -205,7 +204,7 @@ SUBROUTINE two_coeff_basic(ierr                                         &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE two_coeff_basic
 END MODULE two_coeff_basic_mod

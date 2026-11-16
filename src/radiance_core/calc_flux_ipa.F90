@@ -59,7 +59,8 @@ SUBROUTINE calc_flux_ipa(ierr                                           &
   USE rad_pcf, ONLY: ip_direct_csr_scaling, ip_direct_noscaling,        &
                      ip_infra_red, ip_solar, ip_surf_alb_diff,          &
                      ip_surf_alb_dir
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE copy_clr_full_mod, ONLY: copy_clr_full
   USE two_stream_mod, ONLY: two_stream
@@ -271,14 +272,12 @@ SUBROUTINE calc_flux_ipa(ierr                                           &
     , phase_fnc_clr_f(:, :, :)
 !       Moments of the clear-sky phase function for the whole column
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='CALC_FLUX_IPA'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Zero the output arrays ready for incrementing.
   DO i=1, 2*n_layer+2
@@ -562,7 +561,7 @@ SUBROUTINE calc_flux_ipa(ierr                                           &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_flux_ipa
 END MODULE calc_flux_ipa_mod

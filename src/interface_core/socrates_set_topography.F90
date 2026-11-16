@@ -57,12 +57,10 @@ real(RealExt), parameter :: eps = epsilon(1.0_RealExt)
 !character(len=errormessagelength) :: cmessage
 character(len=*), parameter :: RoutineName='SET_TOPOGRAPHY'
 
-integer(kind=jpim), parameter :: zhook_in  = 0
-integer(kind=jpim), parameter :: zhook_out = 1
-real(kind=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
 
-if (lhook) call dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Slope Angle
 if (present(slope_angle)) then
@@ -139,7 +137,7 @@ if (present(skyview)) then
   end do
 end if
 
-if (lhook) call dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 end subroutine set_topography
 end module socrates_set_topography

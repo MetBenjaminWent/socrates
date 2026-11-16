@@ -51,7 +51,8 @@ SUBROUTINE augment_channel( &
                      ip_ir_gauss, ip_sph_mode_flux, ip_sph_mode_rad,    &
                      ip_sph_mode_j
 
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -148,13 +149,11 @@ SUBROUTINE augment_channel( &
 ! Local variables
   INTEGER :: i, k, l, i_path
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='AUGMENT_CHANNEL'
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (l_initial_channel(i_channel)) THEN
 !   Initialization of the radiance field takes place here.
@@ -676,7 +675,7 @@ SUBROUTINE augment_channel( &
     END IF
   END IF
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE augment_channel
 END MODULE augment_channel_mod

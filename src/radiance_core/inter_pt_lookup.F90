@@ -25,7 +25,8 @@ SUBROUTINE inter_pt_lookup(nd_profile, nd_layer, nd_pre, nd_tmp         &
   USE realtype_rd, ONLY: RealK
   USE rad_ccf, ONLY: mol_weight_air
   USE gas_list_pcf, ONLY: molar_weight, ip_h2o
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -137,13 +138,11 @@ SUBROUTINE inter_pt_lookup(nd_profile, nd_layer, nd_pre, nd_tmp         &
 
   REAL (RealK), PARAMETER :: eps = EPSILON(1.0_RealK)
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='INTER_PT_LOOKUP'
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   p_lookup_min = p_lookup(1)      + MAX(ABS(p_lookup(1)     )*eps, eps)
   p_lookup_max = p_lookup(nd_pre) - MAX(ABS(p_lookup(nd_pre))*eps, eps)
@@ -266,7 +265,7 @@ SUBROUTINE inter_pt_lookup(nd_profile, nd_layer, nd_pre, nd_tmp         &
     END DO
   END IF
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE inter_pt_lookup
 END MODULE inter_pt_lookup_mod

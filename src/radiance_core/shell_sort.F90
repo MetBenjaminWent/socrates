@@ -18,7 +18,8 @@ SUBROUTINE shell_sort(n, pointer, key)
 
 
   USE realtype_rd, ONLY: RealK
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -46,18 +47,16 @@ SUBROUTINE shell_sort(n, pointer, key)
     , k
 !       Loop variable
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SHELL_SORT'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (n == 1) THEN
     pointer(1)=1
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
     RETURN
   END IF
 
@@ -76,7 +75,7 @@ SUBROUTINE shell_sort(n, pointer, key)
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE shell_sort
 END MODULE shell_sort_mod

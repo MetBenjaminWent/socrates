@@ -24,7 +24,8 @@ SUBROUTINE calc_contrib_func(n_profile, n_layer, n_cloud_top                   &
   USE realtype_rd, ONLY: RealK
   USE def_ss_prop, ONLY: str_ss_prop
   USE parkind1, ONLY: jprb, jpim
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
 
   IMPLICIT NONE
   
@@ -59,12 +60,10 @@ SUBROUTINE calc_contrib_func(n_profile, n_layer, n_cloud_top                   &
       tau_clr_sum(nd_profile, 0:nd_layer)
 !       Clear-sky optical depths for the whole column from TOA
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'CALC_CONTRIB_FUNC'
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Initialise optical depth at top-of-atmosphere
   tau_clr_sum(1:n_profile, 0) = 0.0_RealK
@@ -101,7 +100,7 @@ SUBROUTINE calc_contrib_func(n_profile, n_layer, n_cloud_top                   &
     END DO
   END DO
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_contrib_func
 END MODULE calc_contrib_func_mod

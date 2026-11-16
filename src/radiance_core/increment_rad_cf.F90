@@ -39,7 +39,8 @@ SUBROUTINE increment_rad_cf(n_profile                                   &
   USE rad_pcf, ONLY: ip_solar, ip_sph_direct, ip_sph_mode_flux,         &
                      ip_sph_mode_j, ip_sph_mode_rad, ip_sph_reduced_iter
   USE rad_ccf, ONLY: pi
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -177,14 +178,12 @@ SUBROUTINE increment_rad_cf(n_profile                                   &
     , cnst_ls
 !       Constant term involving the polar order
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='INCREMENT_RAD_CF'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (i_sph_algorithm == ip_sph_direct) THEN
 
@@ -310,7 +309,7 @@ SUBROUTINE increment_rad_cf(n_profile                                   &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE increment_rad_cf
 END MODULE increment_rad_cf_mod

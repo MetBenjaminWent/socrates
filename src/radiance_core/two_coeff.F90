@@ -33,7 +33,8 @@ SUBROUTINE two_coeff(ierr, control                                      &
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: ip_solar
   USE vectlib_mod, ONLY : sqrt_v
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE def_control, ONLY: StrCtrl
   USE solar_coefficient_basic_mod, ONLY: solar_coefficient_basic
@@ -133,14 +134,12 @@ SUBROUTINE two_coeff(ierr, control                                      &
   REAL (RealK) ::                                                       &
        temp(nd_profile)
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='TWO_COEFF'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Calculate the basic two-stream coefficients. (The single
 ! scattering albedo has already been perturbed away from 1 in
@@ -188,7 +187,7 @@ SUBROUTINE two_coeff(ierr, control                                      &
     )
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE two_coeff
 END MODULE two_coeff_mod

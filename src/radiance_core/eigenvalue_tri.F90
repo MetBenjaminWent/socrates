@@ -27,7 +27,8 @@ SUBROUTINE eigenvalue_tri(n_matrix, n_in, d, e                          &
 
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: i_warning
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -106,15 +107,13 @@ SUBROUTINE eigenvalue_tri(n_matrix, n_in, d, e                          &
    , sup_diag_old(n_matrix)
 !      Previous value of SUP_DIAG
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   INTEGER                       :: ierr
   CHARACTER (LEN=errormessagelength)           :: cmessage
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'EIGENVALUE_TRI'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! The algorithm proceeds iteratively. The matrix supplied, A, is
 ! decomposed as A=QR where Q is orthogonal and R is upper
@@ -273,7 +272,7 @@ SUBROUTINE eigenvalue_tri(n_matrix, n_in, d, e                          &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE eigenvalue_tri
 END MODULE eigenvalue_tri_mod

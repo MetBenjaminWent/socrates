@@ -36,7 +36,8 @@ SUBROUTINE hemi_sph_integ(ls_trunc, ms, uplm_zero                       &
 
   USE realtype_rd, ONLY: RealK
   USE rad_ccf, ONLY: pi
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -70,14 +71,12 @@ SUBROUTINE hemi_sph_integ(ls_trunc, ms, uplm_zero                       &
     , lsr
 !       Reduced polar order
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='HEMI_SPH_INTEG'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! The outer loop is over l' where l'+m is odd. Indexing is done
 ! using the reduced indices l'+1-m and l+1-m.
@@ -91,7 +90,7 @@ SUBROUTINE hemi_sph_integ(ls_trunc, ms, uplm_zero                       &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE hemi_sph_integ
 END MODULE hemi_sph_integ_mod

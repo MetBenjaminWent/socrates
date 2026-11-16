@@ -65,7 +65,8 @@ SUBROUTINE calc_radiance_ipa(                                           &
   USE def_ss_prop, ONLY: str_ss_prop
   USE rad_pcf, ONLY: ip_infra_red, ip_solar, ip_sph_mode_flux,          &
                      ip_sph_reduced_iter, ip_sph_mode_rad
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE sph_solver_mod, ONLY: sph_solver
 
@@ -354,14 +355,12 @@ SUBROUTINE calc_radiance_ipa(                                           &
     , photolysis_column(nd_profile_column, nd_viewing_level)
 !       Photolysis rates
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='CALC_RADIANCE_IPA'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Zero the output arrays ready for incrementing.
   IF (i_sph_mode == ip_sph_mode_flux) THEN
@@ -718,7 +717,7 @@ SUBROUTINE calc_radiance_ipa(                                           &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_radiance_ipa
 END MODULE calc_radiance_ipa_mod

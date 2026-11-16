@@ -25,7 +25,8 @@ SUBROUTINE calc_photolysis_incr(                                      &
   USE def_spectrum, ONLY: StrSpecData
   USE def_qy, ONLY: StrQy
 
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -79,13 +80,11 @@ SUBROUTINE calc_photolysis_incr(                                      &
   INTEGER :: i, l, i_k
   REAL (RealK) :: sub_band_work, photol_work(n_profile, n_layer)
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='CALC_PHOTOLYSIS_INCR'
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   ! Photolysis calculations that depend on sub-band
   i_gas_last=0
@@ -170,7 +169,7 @@ SUBROUTINE calc_photolysis_incr(                                      &
     END IF
   END DO
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_photolysis_incr
 END MODULE calc_photolysis_incr_mod

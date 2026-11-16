@@ -54,7 +54,8 @@ SUBROUTINE two_stream(ierr                                              &
   USE def_spherical_geometry, ONLY: StrSphGeo
   USE rad_pcf, ONLY: ip_infra_red, ip_no_scatter_abs, ip_no_scatter_ext, &
                      ip_scatter_approx, ip_scatter_full
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE column_solver_mod, ONLY: column_solver
   USE ir_source_mod, ONLY: ir_source
@@ -154,13 +155,11 @@ SUBROUTINE two_stream(ierr                                              &
     , s_up(nd_profile, nd_layer)
 !       Upward source
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'TWO_STREAM'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Calculate the two-stream coefficients.
   IF ( (i_scatter_method == ip_scatter_full) .OR.                       &
@@ -206,7 +205,7 @@ SUBROUTINE two_stream(ierr                                              &
     , nd_profile, nd_layer, nd_source_coeff)
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE two_stream
 END MODULE two_stream_mod

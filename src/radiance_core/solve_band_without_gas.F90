@@ -89,7 +89,8 @@ SUBROUTINE solve_band_without_gas(ierr                                  &
   USE rad_pcf, ONLY: ip_infra_red, ip_solar, ip_two_stream, ip_ir_gauss, &
                      ip_spherical_harmonic, ip_scatter_hybrid, &
                      ip_scatter_full
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE augment_radiance_mod, ONLY: augment_radiance
   USE augment_tiled_radiance_mod, ONLY: augment_tiled_radiance
@@ -443,14 +444,12 @@ SUBROUTINE solve_band_without_gas(ierr                                  &
       contrib_funcf_part(nd_flux_profile, nd_layer)
 !       Contribution (or weighting) function
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLVE_BAND_WITHOUT_GAS'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the appropriate total upward and downward fluxes
 ! at the boundaries.
@@ -646,7 +645,7 @@ SUBROUTINE solve_band_without_gas(ierr                                  &
       )
   END IF
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solve_band_without_gas
 END MODULE solve_band_without_gas_mod

@@ -45,7 +45,8 @@ SUBROUTINE calc_surf_rad(n_profile, n_layer, tau                        &
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: ip_solar, ip_infra_red
   USE rad_ccf, ONLY: pi
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -236,14 +237,12 @@ SUBROUTINE calc_surf_rad(n_profile, n_layer, tau                        &
     , brdf_full(nd_profile)
 !       Full BRDF weighted and summed over all basis functions
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='CALC_SURF_RAD'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! For each direction and observing level we calculate the
 ! contribution of the particular integral to the radiance
@@ -440,7 +439,7 @@ SUBROUTINE calc_surf_rad(n_profile, n_layer, tau                        &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_surf_rad
 END MODULE calc_surf_rad_mod

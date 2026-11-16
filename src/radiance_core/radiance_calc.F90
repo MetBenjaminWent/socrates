@@ -43,7 +43,8 @@ SUBROUTINE radiance_calc(control, dimen, spectrum, atm, cld, aer, bound, radout)
   USE gas_list_pcf, ONLY: ip_h2o, ip_air, molar_weight
   USE rad_ccf,      ONLY: mol_weight_air
   USE errormessagelength_mod, ONLY: errormessagelength
-  USE yomhook,      ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1,     ONLY: jprb, jpim
   USE ereport_mod,  ONLY: ereport
 
@@ -481,16 +482,14 @@ SUBROUTINE radiance_calc(control, dimen, spectrum, atm, cld, aer, bound, radout)
   INTEGER :: major_abs
 !   Variable to temporarily hold index of major absorber
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   INTEGER                       :: ierr = i_normal
   CHARACTER (LEN=errormessagelength) :: cmessage
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'RADIANCE_CALC'
 
 
-  IF (lhook) CALL dr_hook(RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, RoutineName)
 
 
   CALL allocate_out(radout, control, dimen, spectrum)
@@ -2188,6 +2187,6 @@ SUBROUTINE radiance_calc(control, dimen, spectrum, atm, cld, aer, bound, radout)
     CALL ereport(RoutineName, ierr, cmessage)
   END IF
 
-  IF (lhook) CALL dr_hook(RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE radiance_calc

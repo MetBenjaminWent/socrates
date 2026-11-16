@@ -98,7 +98,8 @@ SUBROUTINE solve_band_random_overlap(ierr                               &
   USE rad_pcf, ONLY: ip_solar, ip_infra_red, ip_two_stream, ip_ir_gauss,&
                      ip_overlap_exact_major, ip_spherical_harmonic,     &
                      ip_cloud_mcica
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE augment_radiance_mod, ONLY: augment_radiance
   USE augment_tiled_radiance_mod, ONLY: augment_tiled_radiance
@@ -519,14 +520,12 @@ SUBROUTINE solve_band_random_overlap(ierr                               &
       contrib_funcf_part(nd_flux_profile, nd_layer, nd_k_term_inner)
 !       Contribution (or weighting) function
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLVE_BAND_RANDOM_OVERLAP'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 
   ! Loop through all combinations of terms for all absorbers
@@ -902,7 +901,7 @@ SUBROUTINE solve_band_random_overlap(ierr                               &
   DEALLOCATE(i_esft_pointer)
   DEALLOCATE(i_term_reduced)
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solve_band_random_overlap
 END MODULE solve_band_random_overlap_mod

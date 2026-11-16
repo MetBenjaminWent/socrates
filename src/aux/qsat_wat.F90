@@ -18,7 +18,8 @@
       USE realtype_rd, ONLY: RealK
       USE rad_ccf, ONLY: mol_weight_air
       USE gas_list_pcf, ONLY: molar_weight, ip_h2o
-      USE yomhook, ONLY: lhook, dr_hook
+      USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+      USE vernier_timing_mod, ONLY: LPROF_MOCI
       USE parkind1, ONLY: jprb, jpim
       IMPLICIT NONE
 !
@@ -131,9 +132,7 @@
 !                         CHEMICAL PROPERTIES OF AIR, P35
 !
 
-      INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-      INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-      REAL(KIND=jprb)               :: zhook_handle
+      INTEGER(KIND=vik) :: vnr_handle_1
 
       CHARACTER(LEN=*), PARAMETER :: RoutineName='QSAT_WAT'
 
@@ -485,7 +484,7 @@
      &0.244611E+05,0.245712E+05,0.246814E+05,0.247923E+05,0.249034E+05, &
      &0.250152E+05,0.250152E+05/
 
-      IF (lhook) CALL dr_hook(RoutineName,zhook_in,zhook_handle)
+      IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, RoutineName)
 
       REPSILON = molar_weight(ip_h2o)*1.0E-03_RealK / mol_weight_air
       ONE_MINUS_EPSILON = 1.0 - REPSILON
@@ -537,7 +536,7 @@
       END DO ! Npnts_do_1
 !$OMP END PARALLEL DO
 !
-      IF (lhook) CALL dr_hook(RoutineName,zhook_out,zhook_handle)
+      IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
       RETURN
       END SUBROUTINE QSAT_WAT
 ! ======================================================================

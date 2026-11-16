@@ -26,7 +26,8 @@ FUNCTION set_n_cloud_parameter(i_scheme, i_component, n_phase_term)
                      ip_slingo_schr_phf, ip_slingo_schrecker,           &
                      ip_slingo_schrecker_ice, ip_sun_shine_vn2_ir,      &
                      ip_sun_shine_vn2_vis, ip_ice_pade_2_phf
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -45,14 +46,12 @@ FUNCTION set_n_cloud_parameter(i_scheme, i_component, n_phase_term)
       set_n_cloud_parameter
 !       Returned number of coefficients in parametrization
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SET_N_CLOUD_PARAMETER'
 
 
-  IF (lhook) CALL dr_hook(RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, RoutineName)
 
   IF ( (i_component == ip_clcmp_st_water).OR.                           &
        (i_component == ip_clcmp_cnv_water) ) THEN
@@ -105,5 +104,5 @@ FUNCTION set_n_cloud_parameter(i_scheme, i_component, n_phase_term)
   END IF
 
 
-  IF (lhook) CALL dr_hook(RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 END FUNCTION set_n_cloud_parameter

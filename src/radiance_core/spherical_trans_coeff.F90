@@ -20,7 +20,8 @@ SUBROUTINE spherical_trans_coeff(                                              &
   USE def_spherical_geometry, ONLY: StrSphGeo
   USE vectlib_mod,            ONLY: exp_v
   USE parkind1,               ONLY: jprb, jpim
-  USE yomhook,                ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
 
   IMPLICIT NONE
 
@@ -53,14 +54,12 @@ SUBROUTINE spherical_trans_coeff(                                              &
 
   INTEGER :: path_base
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SPHERICAL_TRANS_COEFF'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO ii=0, n_layer+1
     DO l=1, n_profile
@@ -83,7 +82,7 @@ SUBROUTINE spherical_trans_coeff(                                              &
     END IF
   END DO
   
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE spherical_trans_coeff
 END MODULE spherical_trans_coeff_mod

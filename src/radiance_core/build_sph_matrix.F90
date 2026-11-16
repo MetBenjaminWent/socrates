@@ -86,7 +86,8 @@ SUBROUTINE build_sph_matrix(i_sph_algorithm, euler_factor               &
   USE rad_pcf, ONLY: ip_solar, ip_infra_red, ip_sph_direct,             &
                      ip_sph_reduced_iter 
   USE rad_ccf, ONLY: pi
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE calc_surf_rad_mod, ONLY: calc_surf_rad
   USE calc_top_rad_mod, ONLY: calc_top_rad
@@ -363,14 +364,12 @@ SUBROUTINE build_sph_matrix(i_sph_algorithm, euler_factor               &
       upm_c(nd_profile, 2*nd_red_eigensystem)
 !       Weights for exponentials in conditioning term
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='BUILD_SPH_MATRIX'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Initialize the matrix.
   DO ie=1, 2*n_layer*n_red_eigensystem
@@ -941,7 +940,7 @@ SUBROUTINE build_sph_matrix(i_sph_algorithm, euler_factor               &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE build_sph_matrix
 END MODULE build_sph_matrix_mod

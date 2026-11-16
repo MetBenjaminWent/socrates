@@ -28,7 +28,8 @@ SUBROUTINE single_scattering(i_scatter_method_band                      &
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: ip_no_scatter_abs, ip_no_scatter_ext,              &
                      ip_scatter_approx, ip_scatter_full
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -98,14 +99,12 @@ SUBROUTINE single_scattering(i_scatter_method_band                      &
 !       The smallest real number such that 1.0-EPS_R is not 1
 !       to the computer's precision
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SINGLE_SCATTERING'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the tolerances used in avoiding ill-conditioning, testing
 ! on any variable.
@@ -164,7 +163,7 @@ SUBROUTINE single_scattering(i_scatter_method_band                      &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE single_scattering
 END MODULE single_scattering_mod

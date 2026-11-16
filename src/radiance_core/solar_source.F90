@@ -27,7 +27,8 @@ SUBROUTINE solar_source(control, bound, n_profile, n_layer              &
   USE rad_pcf,     ONLY: ip_direct_csr_scaling,ip_direct_noscaling,     &
                          ip_scf_solar_down,ip_scf_solar_up
   USE parkind1, ONLY: jprb, jpim
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
 
   IMPLICIT NONE
 
@@ -93,14 +94,12 @@ SUBROUTINE solar_source(control, bound, n_profile, n_layer              &
 !       Direct flux without scaling
 
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLAR_SOURCE'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO l=1, n_profile
     flux_direct(l, 0)=flux_inc_direct(l)
@@ -204,7 +203,7 @@ SUBROUTINE solar_source(control, bound, n_profile, n_layer              &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solar_source
 END MODULE solar_source_mod

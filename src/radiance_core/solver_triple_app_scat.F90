@@ -33,7 +33,8 @@ SUBROUTINE solver_triple_app_scat(n_profile, n_layer, n_cloud_top       &
 
 
   USE realtype_rd, ONLY: RealK
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -163,14 +164,12 @@ SUBROUTINE solver_triple_app_scat(n_profile, n_layer, n_cloud_top       &
     , flux_propag_3(nd_profile)
 !       Temporary fluxes for propagation across layers
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLVER_TRIPLE_APP_SCAT'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! The arrays flux_down and flux_up will eventually contain the total
 ! fluxes, but initially they are used for the clear fluxes.
@@ -320,7 +319,7 @@ SUBROUTINE solver_triple_app_scat(n_profile, n_layer, n_cloud_top       &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solver_triple_app_scat
 END MODULE solver_triple_app_scat_mod

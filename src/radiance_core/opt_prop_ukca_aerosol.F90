@@ -33,7 +33,8 @@ SUBROUTINE opt_prop_ukca_aerosol(                                       &
 
 
   USE realtype_rd, ONLY: RealK
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -116,14 +117,12 @@ SUBROUTINE opt_prop_ukca_aerosol(                                       &
 !       Scattering coefficient multiplied by a coefficient in the
 !       phase function
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='OPT_PROP_UKCA_AEROSOL'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO j=1, n_ukca_mode
 
@@ -203,7 +202,7 @@ SUBROUTINE opt_prop_ukca_aerosol(                                       &
   END DO ! j
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE opt_prop_ukca_aerosol
 END MODULE opt_prop_ukca_aerosol_mod

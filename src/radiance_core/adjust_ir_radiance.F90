@@ -23,7 +23,8 @@ SUBROUTINE adjust_ir_radiance(control, spectrum, atm, radout, &
   USE rad_pcf, ONLY: ip_ir_gauss, ip_sph_mode_flux, ip_spherical_harmonic,    &
                      ip_two_stream, ip_sph_mode_rad
   USE rad_ccf, ONLY: pi
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -58,14 +59,12 @@ SUBROUTINE adjust_ir_radiance(control, spectrum, atm, radout, &
   REAL (RealK) :: weight_channel_incr
 !       Weight to apply to channel increments
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='ADJUST_IR_RADIANCE'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (control%l_map_sub_bands) THEN
     ! Adjust the fluxes with sub-bands mapping to channels
@@ -166,7 +165,7 @@ SUBROUTINE adjust_ir_radiance(control, spectrum, atm, radout, &
 
   END IF
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 
 CONTAINS

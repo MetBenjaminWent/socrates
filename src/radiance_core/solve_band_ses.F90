@@ -101,7 +101,8 @@ SUBROUTINE solve_band_ses(ierr                                          &
   USE def_spherical_geometry, ONLY: StrSphGeo
   USE rad_pcf, ONLy: ip_solar, ip_infra_red, ip_surf_alb_diff,          &
                      ip_cloud_mcica, ip_two_stream, ip_ir_gauss
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE augment_radiance_mod, ONLY: augment_radiance
   USE augment_tiled_radiance_mod, ONLY: augment_tiled_radiance
@@ -516,14 +517,12 @@ SUBROUTINE solve_band_ses(ierr                                          &
       contrib_funcf_part(nd_flux_profile, nd_layer)
 !       Contribution (or weighting) function
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLVE_BAND_SES'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the appropriate boundary terms for the total
 ! upward and downward fluxes.
@@ -820,7 +819,7 @@ SUBROUTINE solve_band_ses(ierr                                          &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solve_band_ses
 END MODULE solve_band_ses_mod

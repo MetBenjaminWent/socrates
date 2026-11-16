@@ -20,7 +20,8 @@ SUBROUTINE ses_rescale_contm(nd_profile, nd_layer                       &
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: ip_cont_h2o, ip_cont_o4
   USE rad_ccf, ONLY: mol_weight_air, n_avogadro, k_boltzmann
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -69,14 +70,12 @@ SUBROUTINE ses_rescale_contm(nd_profile, nd_layer                       &
 !  Note: E-23 in o2mix n2mix is for unit conversion
 !        E-10 for o2n2 o2o2 also for unit conversion
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SES_RESCALE_CONTM'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   k_m_air=k_boltzmann*mol_weight_air
   IF (i_continuum  ==  ip_cont_h2o ) THEN
@@ -108,6 +107,6 @@ SUBROUTINE ses_rescale_contm(nd_profile, nd_layer                       &
     END DO
   END IF
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 END SUBROUTINE ses_rescale_contm
 END MODULE ses_rescale_contm_mod

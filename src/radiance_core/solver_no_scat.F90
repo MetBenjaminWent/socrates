@@ -19,7 +19,8 @@ SUBROUTINE solver_no_scat(n_profile, n_layer                            &
 
 
   USE realtype_rd, ONLY: RealK
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -62,14 +63,12 @@ SUBROUTINE solver_no_scat(n_profile, n_layer                            &
       i, l
 !       Loop variables
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLVER_NO_SCAT'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Downward fluxes.
   DO l=1, n_profile
@@ -93,7 +92,7 @@ SUBROUTINE solver_no_scat(n_profile, n_layer                            &
     END DO
   END DO
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solver_no_scat
 END MODULE solver_no_scat_mod

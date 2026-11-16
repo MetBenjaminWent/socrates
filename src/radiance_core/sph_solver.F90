@@ -59,7 +59,8 @@ SUBROUTINE sph_solver(                                                  &
   USE rad_pcf, ONLY: ip_solar, ip_sph_direct, ip_sph_mode_flux,         &
                      ip_sph_mode_rad, ip_sph_reduced_iter,              &
                      ip_trunc_adaptive
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE build_sph_matrix_mod, ONLY: build_sph_matrix
   USE cg_kappa_ms_mod, ONLY: cg_kappa_ms
@@ -280,14 +281,12 @@ SUBROUTINE sph_solver(                                                  &
     , ls_significant
 !       Maximum significant polar order
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SPH_SOLVER'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Calculate the direct radiances which are independent of the
 ! azimuthal order.
@@ -518,7 +517,7 @@ SUBROUTINE sph_solver(                                                  &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE sph_solver
 END MODULE sph_solver_mod

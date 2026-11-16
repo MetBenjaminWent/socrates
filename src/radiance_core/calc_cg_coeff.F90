@@ -29,7 +29,8 @@ SUBROUTINE calc_cg_coeff(ls_max_order                                   &
 
 
   USE realtype_rd, ONLY: RealK
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -64,14 +65,12 @@ SUBROUTINE calc_cg_coeff(ls_max_order                                   &
       inv
 !       l-dependent denominator
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='CALC_CG_COEFF'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO ls=0, ls_max_order
     inv=1.0e+00_RealK/REAL((2*ls+1)*(2*ls+3), RealK)
@@ -82,7 +81,7 @@ SUBROUTINE calc_cg_coeff(ls_max_order                                   &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_cg_coeff
 END MODULE calc_cg_coeff_mod

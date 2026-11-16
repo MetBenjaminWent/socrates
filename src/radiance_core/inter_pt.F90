@@ -25,7 +25,8 @@ SUBROUTINE inter_pt(nd_profile, nd_layer                                &
      , jp, jph2oc, jt, jtt, jto2c, jtswo3 )
 
   USE realtype_rd, ONLY: RealK
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -190,9 +191,7 @@ REAL, PARAMETER ::       &
   PARAMETER(dt=1./15, dtc=0.02, dtswo3=1./35, dwvp=0.4                  &
            , ratio_air_h2o=1.60777e-02)
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='INTER_PT'
 
@@ -233,7 +232,7 @@ REAL, PARAMETER ::       &
    5.36000e+00, 5.56000e+00, 5.76000e+00, 5.96000e+00, 6.16000e+00,     &
    6.36000e+00, 6.56000e+00, 6.76000e+00, 6.96000e+00/
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO i=1, n_layer
     DO l=1, n_profile
@@ -313,6 +312,6 @@ REAL, PARAMETER ::       &
     END DO
   END DO
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 END SUBROUTINE inter_pt
 END MODULE inter_pt_mod

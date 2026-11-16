@@ -28,7 +28,8 @@ SUBROUTINE set_rad_layer(ierr                                           &
 
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: i_err_fatal
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -70,14 +71,12 @@ SUBROUTINE set_rad_layer(ierr                                           &
       tol_bdy
 !       The tolerance detecting the closeness of boundaries
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=errormessagelength)           :: cmessage
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'SET_RAD_LAYER'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the tolerance for detecting boundaries.
   tol_bdy=1.6e+01_RealK*EPSILON(tol_bdy)
@@ -113,7 +112,7 @@ SUBROUTINE set_rad_layer(ierr                                           &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE set_rad_layer
 END MODULE set_rad_layer_mod

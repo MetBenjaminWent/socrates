@@ -40,7 +40,8 @@ SUBROUTINE augment_tiled_radiance(control, spectrum, radout             &
   USE rad_pcf, ONLY: i_err_fatal, ip_infra_red, ip_ir_gauss, ip_solar,  &
                      ip_spherical_harmonic, ip_surf_alb_diff,           &
                      ip_surf_alb_dir, ip_two_stream
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -121,15 +122,13 @@ SUBROUTINE augment_tiled_radiance(control, spectrum, radout             &
   REAL (RealK) :: weight_channel_incr
 !       Weight to apply to channel increments
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   INTEGER :: ierr
   CHARACTER (LEN=errormessagelength) :: cmessage
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'AUGMENT_TILED_RADIANCE'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (control%l_map_sub_bands) THEN
     ! Increment the fluxes with sub-bands mapping to channels
@@ -172,7 +171,7 @@ SUBROUTINE augment_tiled_radiance(control, spectrum, radout             &
     CALL augment_channel_tile()
   END IF
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 
 CONTAINS

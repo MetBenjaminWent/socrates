@@ -23,7 +23,8 @@ SUBROUTINE spherical_solar_source(bound, sph_common, sph_comp,                 &
   USE def_spherical_geometry, ONLY: StrSphCommon, StrSphComp
   USE rad_pcf,                ONLY: ip_scf_solar_up, ip_scf_solar_down
   USE parkind1,               ONLY: jprb, jpim
-  USE yomhook,                ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
 
   IMPLICIT NONE
 
@@ -83,14 +84,12 @@ SUBROUTINE spherical_solar_source(bound, sph_common, sph_comp,                 &
   REAL (RealK) :: f_forward, f_backward
 !       Working variables for calculating up and down scattered flux
   
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SPHERICAL_SOLAR_SOURCE'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (l_scale_solar) THEN
 !   The solar flux may be multiplied by a scaling factor if an
@@ -157,7 +156,7 @@ SUBROUTINE spherical_solar_source(bound, sph_common, sph_comp,                 &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE spherical_solar_source
 END MODULE spherical_solar_source_mod

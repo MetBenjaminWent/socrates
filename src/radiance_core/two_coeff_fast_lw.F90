@@ -31,7 +31,8 @@ SUBROUTINE two_coeff_fast_lw(n_profile                                  &
   USE realtype_rd, ONLY: RealK
   USE vectlib_mod, ONLY: exp_v
   USE rad_pcf, ONLY: ip_scf_ir_1d,ip_scf_ir_2d
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -98,14 +99,12 @@ SUBROUTINE two_coeff_fast_lw(n_profile                                  &
     , trans_in(nd_profile, nd_layer)
 !       Temporary variable
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='TWO_COEFF_FAST_LW'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the tolerances used in avoiding ill-conditioning, testing
 ! on any variable.
@@ -154,7 +153,7 @@ SUBROUTINE two_coeff_fast_lw(n_profile                                  &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE two_coeff_fast_lw
 END MODULE two_coeff_fast_lw_mod

@@ -27,7 +27,8 @@ SUBROUTINE finalise_photol_incr( &
   USE def_spectrum, ONLY: StrSpecData
   USE def_atm, ONLY: StrAtm
 
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -75,13 +76,11 @@ SUBROUTINE finalise_photol_incr( &
   REAL (RealK) :: photol_rate_work(n_profile, n_layer)
   REAL (RealK) :: tol = SQRT(TINY(1.0_RealK))
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='FINALISE_PHOTOL_INCR'
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   ! Photolysis calculations that do not depend on sub-band
   i_gas_last=0
@@ -144,7 +143,7 @@ SUBROUTINE finalise_photol_incr( &
     END IF
   END DO
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE finalise_photol_incr
 END MODULE finalise_photol_incr_mod

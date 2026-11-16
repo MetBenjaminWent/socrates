@@ -38,7 +38,8 @@ SUBROUTINE single_scat_sol(n_profile, n_layer                           &
 
   USE realtype_rd, ONLY: RealK
   USE rad_ccf, ONLY: pi
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -158,14 +159,12 @@ SUBROUTINE single_scat_sol(n_profile, n_layer                           &
     , eta_nm
 !       The conditioning multiplier applied in the numerator
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SINGLE_SCAT_SOL'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the tolerances used in avoiding ill-conditioning, testing
 ! on any variable.
@@ -336,7 +335,7 @@ SUBROUTINE single_scat_sol(n_profile, n_layer                           &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE single_scat_sol
 END MODULE single_scat_sol_mod

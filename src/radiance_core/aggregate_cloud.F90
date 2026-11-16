@@ -34,7 +34,8 @@ SUBROUTINE aggregate_cloud(ierr                                         &
                      ip_cloud_conv_strat, ip_cloud_split_homogen,       &
                      ip_cloud_type_strat, ip_cloud_type_conv,           &
                      i_err_fatal, ip_cloud_part_corr_cnv,ip_cloud_triple
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -95,14 +96,12 @@ SUBROUTINE aggregate_cloud(ierr                                         &
     , k
 !       Loop variable
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=errormessagelength)           :: cmessage
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'AGGREGATE_CLOUD'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF ( (i_cloud == ip_cloud_triple).OR.                                 &
        (i_cloud == ip_cloud_part_corr_cnv) ) THEN
@@ -162,7 +161,7 @@ SUBROUTINE aggregate_cloud(ierr                                         &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE aggregate_cloud
 END MODULE aggregate_cloud_mod

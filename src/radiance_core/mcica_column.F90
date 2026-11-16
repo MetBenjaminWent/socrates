@@ -65,7 +65,8 @@ SUBROUTINE mcica_column(ierr                                            &
   USE rad_pcf, ONLY: ip_direct_csr_scaling, ip_direct_noscaling,        &
                      ip_infra_red, ip_no_scatter_abs, ip_no_scatter_ext,&
                      ip_scatter_approx, ip_solar,  ip_scatter_full
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   USE set_n_source_coeff_mod, ONLY: set_n_source_coeff
@@ -248,13 +249,11 @@ SUBROUTINE mcica_column(ierr                                            &
 
   INTEGER :: path_base
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'MCICA_COLUMN'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the number of source coefficients for the approximation
   n_source_coeff=set_n_source_coeff(isolir, l_ir_source_quad)
@@ -620,7 +619,7 @@ SUBROUTINE mcica_column(ierr                                            &
     DEALLOCATE(tau_abs)
   END IF
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE mcica_column
 END MODULE mcica_column_mod

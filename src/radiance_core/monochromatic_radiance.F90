@@ -98,7 +98,8 @@ SUBROUTINE monochromatic_radiance(ierr                                  &
   USE rad_pcf, ONLY: ip_direct_csr_scaling, ip_direct_noscaling,        &
                      ip_ir_gauss, ip_spherical_harmonic, ip_two_stream, &
                      ip_surf_alb_diff
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE calc_contrib_func_mod, ONLY: calc_contrib_func 
   USE spherical_trans_coeff_mod, ONLY: spherical_trans_coeff
@@ -417,14 +418,12 @@ SUBROUTINE monochromatic_radiance(ierr                                  &
       tau_clr_f(:, :)
 !       Clear-sky optical depths for the whole column
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='MONOCHROMATIC_RADIANCE'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO i_n_term_inner = 1 , n_k_term_inner
 
@@ -690,7 +689,7 @@ SUBROUTINE monochromatic_radiance(ierr                                  &
 
   END DO  ! n_k_term_inner
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE monochromatic_radiance
 END MODULE monochromatic_radiance_mod

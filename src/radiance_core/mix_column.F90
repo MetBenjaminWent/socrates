@@ -68,7 +68,8 @@ SUBROUTINE mix_column(ierr                                              &
   USE rad_pcf, ONLY: ip_solver_mix_app_scat,ip_solver_mix_direct,       &
                      ip_solver_mix_direct_hogan, ip_solar, ip_infra_red,&
                      i_err_fatal
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -283,14 +284,12 @@ SUBROUTINE mix_column(ierr                                              &
     , flux_direct_ground_cloud(nd_profile)
 !       Direct flux at ground under cloudy skies
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=errormessagelength)           :: cmessage
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'MIX_COLUMN'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the pointers to the various types of transition.
   i_ovp_dn_ff=3*k_clr-2
@@ -551,7 +550,7 @@ SUBROUTINE mix_column(ierr                                              &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE mix_column
 END MODULE mix_column_mod

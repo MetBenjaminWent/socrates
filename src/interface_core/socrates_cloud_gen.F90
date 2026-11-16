@@ -163,9 +163,7 @@ implicit none
   character(len=*), parameter :: RoutineName = 'CLOUD_GEN'
   character(len=80)           :: cmessage
 
-  integer(kind=jpim), parameter :: zhook_in  = 0
-  integer(kind=jpim), parameter :: zhook_out = 1
-  real(kind=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   integer :: temp
   integer, parameter :: rand_seed_max = (huge(m)-c)/a
@@ -174,7 +172,7 @@ implicit none
 !     Minimum cloud fraction
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   ! Generate random seeds for each sub-column
   do il=il1, il2
@@ -232,8 +230,7 @@ implicit none
 
   ! If no cloudy layers in any GCM column then exit
   if (k_top == 0) then
-    if (lhook) call dr_hook(ModuleName//':'//RoutineName,zhook_out, &
-                            zhook_handle)
+    IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
     return
   end if
 
@@ -474,6 +471,6 @@ implicit none
     n_subcol_cld(il) = i_loc(il)-1
   end do
 
-  if (lhook) call dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 end subroutine cloud_gen
 end module socrates_cloud_gen

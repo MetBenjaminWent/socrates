@@ -67,14 +67,12 @@ real(RealK) :: cosz_hor(n_profile)
 real(RealK) :: cosz_lit(n_profile)
 real(RealK) :: lit_frac(n_profile)
 
-integer(KIND=jpim), parameter :: zhook_in  = 0
-integer(KIND=jpim), parameter :: zhook_out = 1
-real(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
 character(len=*), parameter :: RoutineName='SOLINC'
 
 
-if (lhook) call dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! orog_corr is equal to the cosine of the angle between the incoming
 ! solar insolation and the normal to the mean slope, divided by
@@ -135,6 +133,6 @@ if (l_shading) then
 end if
 end if
 
-if (lhook) call dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 end subroutine solinc
 end module solinc_mod

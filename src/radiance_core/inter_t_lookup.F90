@@ -18,7 +18,8 @@ SUBROUTINE inter_t_lookup(nd_profile, nd_layer, nd_t_lookup_cont &
      , wt_ct, jt_ct)
 
   USE realtype_rd, ONLY: RealK
-  USE yomhook,     ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1,    ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -63,13 +64,11 @@ SUBROUTINE inter_t_lookup(nd_profile, nd_layer, nd_t_lookup_cont &
 
   REAL, PARAMETER :: eps = EPSILON(1.0_RealK)
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='INTER_T_LOOKUP'
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 
   DO i=1, n_layer
@@ -89,6 +88,6 @@ SUBROUTINE inter_t_lookup(nd_profile, nd_layer, nd_t_lookup_cont &
     END DO
   END DO
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 END SUBROUTINE inter_t_lookup
 END MODULE inter_t_lookup_mod

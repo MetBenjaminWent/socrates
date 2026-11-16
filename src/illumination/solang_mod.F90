@@ -24,7 +24,8 @@ SUBROUTINE solang(orbit, t, dt, sindec, eqt, lat, lon, k,                      &
 USE realtype_rd, ONLY: RealK
 USE rad_ccf, ONLY: pi, seconds_per_day
 USE parkind1, ONLY: jprb, jpim
-USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_MOCI
 USE def_orbit, ONLY: StrOrbit, &
   ip_spin_user, ip_spin_earth_day, ip_spin_fixed_sun
 
@@ -94,14 +95,12 @@ REAL(RealK) ::                                                                 &
 REAL(RealK), PARAMETER :: twopi = 2.0_RealK*pi
 REAL(RealK), PARAMETER :: eps = EPSILON(1.0_RealK)
 
-INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
 CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLANG'
 
 
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 SELECT CASE (orbit%i_spin)
 CASE (ip_spin_user)
@@ -246,6 +245,6 @@ ELSE
 
 END IF
 
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 END SUBROUTINE solang
 END MODULE solang_mod

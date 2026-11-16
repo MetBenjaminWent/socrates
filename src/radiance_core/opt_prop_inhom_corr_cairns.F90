@@ -29,7 +29,8 @@ SUBROUTINE opt_prop_inhom_corr_cairns(                                         &
 
 
   USE realtype_rd, ONLY: RealK
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -95,13 +96,11 @@ SUBROUTINE opt_prop_inhom_corr_cairns(                                         &
 
   REAL (RealK), PARAMETER :: tiny_k=TINY(k_ext_scat_cloud)
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'OPT_PROP_INHOM_CORR_CAIRNS'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Apply inhomogeneity corrections to optical scattering parameters
 
@@ -138,7 +137,7 @@ SUBROUTINE opt_prop_inhom_corr_cairns(                                         &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE opt_prop_inhom_corr_cairns
 END MODULE opt_prop_inhom_corr_cairns_mod

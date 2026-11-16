@@ -31,7 +31,8 @@ SUBROUTINE monochromatic_gas_flux(n_profile, n_layer                    &
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: ip_infra_red, ip_solar
   USE vectlib_mod, ONLY : exp_v
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -105,14 +106,12 @@ SUBROUTINE monochromatic_gas_flux(n_profile, n_layer                    &
   REAL (RealK) :: temp(n_profile)
   REAL (RealK) :: temp_in(n_profile)
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='MONOCHROMATIC_GAS_FLUX'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the tolerances used in avoiding ill-conditioning, testing
 ! on any variable.
@@ -192,7 +191,7 @@ SUBROUTINE monochromatic_gas_flux(n_profile, n_layer                    &
   END DO
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE monochromatic_gas_flux
 END MODULE monochromatic_gas_flux_mod

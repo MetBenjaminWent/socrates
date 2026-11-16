@@ -34,7 +34,8 @@ SUBROUTINE orbprm(day, year, l_sec_var, lcal360, e, gamph, oblq, mean_anomaly)
 
 USE realtype_rd, ONLY: RealK
 USE rad_ccf, ONLY: pi
-USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_MOCI
 USE parkind1, ONLY: jprb, jpim
 USE astro_constants_mod , ONLY:                                    &
     a, b, c, d, date_ve_dflt, e_dflt, f, g, gn_prcs_cnst, h,       &
@@ -83,16 +84,14 @@ INTEGER :: i  ! Loop variable
 ! Mathematical constants:
 REAL(RealK), PARAMETER :: twopi = 2.0_RealK * pi
 
-INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
 CHARACTER(LEN=*), PARAMETER :: RoutineName='ORBPRM'
 
 ! Astronomical Parameters: from astro_constants_mod
 
 
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! The length of the calendar year may be set for a 360-day calendar
 !  (as is often used in climate runs),
@@ -241,6 +240,6 @@ ELSE
 END IF
 
 
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 END SUBROUTINE orbprm
 END MODULE orbprm_mod

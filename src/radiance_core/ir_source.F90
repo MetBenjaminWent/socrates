@@ -27,7 +27,8 @@ SUBROUTINE ir_source(n_profile, i_layer_first, i_layer_last             &
 
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: ip_scf_ir_1d, ip_scf_ir_2d
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -79,14 +80,12 @@ SUBROUTINE ir_source(n_profile, i_layer_first, i_layer_last             &
     , l
 !       Loop variable
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='IR_SOURCE'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Multiply the source coefficients by the Planckian differences
 ! to the order required.
@@ -119,7 +118,7 @@ SUBROUTINE ir_source(n_profile, i_layer_first, i_layer_last             &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE ir_source
 END MODULE ir_source_mod

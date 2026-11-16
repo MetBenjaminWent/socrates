@@ -49,7 +49,8 @@ SUBROUTINE calc_brdf(isolir, ms_min, ms_max                             &
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: ip_solar, ip_infra_red
   USE rad_ccf, ONLY: pi
-  USE yomhook, ONLY: lhook, dr_hook
+  USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+  USE vernier_timing_mod, ONLY: LPROF_MOCI
   USE parkind1, ONLY: jprb, jpim
   USE eval_uplm_mod, ONLY: eval_uplm
 
@@ -152,14 +153,12 @@ SUBROUTINE calc_brdf(isolir, ms_min, ms_max                             &
     , fk(nd_brdf_trunc+1)
 !       Sum of products of the BRDF and KAPPA over l'
 
-  INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-  INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-  REAL(KIND=jprb)               :: zhook_handle
+  INTEGER(KIND=vik) :: vnr_handle_1
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='CALC_BRDF'
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (isolir == ip_solar) THEN
 
@@ -287,7 +286,7 @@ SUBROUTINE calc_brdf(isolir, ms_min, ms_max                             &
   END IF
 
 
-  IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+  IF (LPROF_MOCI) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_brdf
 END MODULE calc_brdf_mod
