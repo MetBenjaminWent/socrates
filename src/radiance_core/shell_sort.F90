@@ -19,7 +19,7 @@ SUBROUTINE shell_sort(n, pointer, key)
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -52,11 +52,11 @@ SUBROUTINE shell_sort(n, pointer, key)
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SHELL_SORT'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (n == 1) THEN
     pointer(1)=1
-    IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
     RETURN
   END IF
 
@@ -75,7 +75,7 @@ SUBROUTINE shell_sort(n, pointer, key)
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE shell_sort
 END MODULE shell_sort_mod

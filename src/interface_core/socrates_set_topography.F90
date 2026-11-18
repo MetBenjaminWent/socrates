@@ -60,7 +60,7 @@ character(len=*), parameter :: RoutineName='SET_TOPOGRAPHY'
 INTEGER(KIND=vik) :: vnr_handle_1
 
 
-IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Slope Angle
 if (present(slope_angle)) then
@@ -137,7 +137,7 @@ if (present(skyview)) then
   end do
 end if
 
-IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 end subroutine set_topography
 end module socrates_set_topography

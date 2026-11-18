@@ -30,7 +30,7 @@ SUBROUTINE calc_cg_coeff(ls_max_order                                   &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -70,7 +70,7 @@ SUBROUTINE calc_cg_coeff(ls_max_order                                   &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='CALC_CG_COEFF'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO ls=0, ls_max_order
     inv=1.0e+00_RealK/REAL((2*ls+1)*(2*ls+3), RealK)
@@ -81,7 +81,7 @@ SUBROUTINE calc_cg_coeff(ls_max_order                                   &
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_cg_coeff
 END MODULE calc_cg_coeff_mod

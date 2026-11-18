@@ -54,7 +54,7 @@ SUBROUTINE opt_prop_ice_cloud(ierr                                      &
                      ip_sun_shine_vn2_vis, ip_ice_pade_2_phf
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -221,7 +221,7 @@ SUBROUTINE opt_prop_ice_cloud(ierr                                      &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'OPT_PROP_ICE_CLOUD'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 
   IF ( (n_order_phase == 1) .AND.                                       &
@@ -946,7 +946,7 @@ SUBROUTINE opt_prop_ice_cloud(ierr                                      &
   END IF
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE opt_prop_ice_cloud
 END MODULE opt_prop_ice_cloud_mod

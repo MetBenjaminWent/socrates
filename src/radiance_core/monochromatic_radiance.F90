@@ -99,7 +99,7 @@ SUBROUTINE monochromatic_radiance(ierr                                  &
                      ip_ir_gauss, ip_spherical_harmonic, ip_two_stream, &
                      ip_surf_alb_diff
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
   USE calc_contrib_func_mod, ONLY: calc_contrib_func 
   USE spherical_trans_coeff_mod, ONLY: spherical_trans_coeff
@@ -423,7 +423,7 @@ SUBROUTINE monochromatic_radiance(ierr                                  &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='MONOCHROMATIC_RADIANCE'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO i_n_term_inner = 1 , n_k_term_inner
 
@@ -689,7 +689,7 @@ SUBROUTINE monochromatic_radiance(ierr                                  &
 
   END DO  ! n_k_term_inner
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE monochromatic_radiance
 END MODULE monochromatic_radiance_mod

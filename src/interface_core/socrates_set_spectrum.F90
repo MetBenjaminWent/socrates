@@ -94,7 +94,7 @@ character(len=*), parameter :: RoutineName='SET_SPECTRUM'
 INTEGER(KIND=vik) :: vnr_handle_1
 
 
-IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 nullify(spec)
 
@@ -162,7 +162,7 @@ else if (present(spectrum_name).or.present(spectrum)) then
   call map_sub_bands(spec)
 end if
 
-IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 end subroutine set_spectrum
 
@@ -659,7 +659,7 @@ character(len=*), parameter :: RoutineName='SET_MCICA'
 INTEGER(KIND=vik) :: vnr_handle_2
 
 
-IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+IF (lprof_socrates) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
 nullify(sw_spec, lw_spec, mcica)
 
@@ -769,7 +769,7 @@ else if (present(lw_spectrum_name)) then
   end if
 end if
 
-IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_2)
+IF (lprof_socrates) CALL vernier_stop(vnr_handle_2)
 
 end subroutine set_mcica
 

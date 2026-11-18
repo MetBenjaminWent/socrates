@@ -26,7 +26,7 @@ SUBROUTINE set_moist_aerosol_properties(ierr                            &
   USE realtype_rd, ONLY: RealK
   USE rad_pcf
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
 
@@ -100,7 +100,7 @@ SUBROUTINE set_moist_aerosol_properties(ierr                            &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'SET_MOIST_AEROSOL_PROPERTIES'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, RoutineName)
 
 ! Set up array of pointers to `include' the effects of humidity.
 ! Calculate the saturated mixing ratio.
@@ -169,6 +169,6 @@ SUBROUTINE set_moist_aerosol_properties(ierr                            &
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE set_moist_aerosol_properties

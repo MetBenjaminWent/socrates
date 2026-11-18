@@ -35,7 +35,7 @@ SUBROUTINE aggregate_cloud(ierr                                         &
                      ip_cloud_type_strat, ip_cloud_type_conv,           &
                      i_err_fatal, ip_cloud_part_corr_cnv,ip_cloud_triple
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -101,7 +101,7 @@ SUBROUTINE aggregate_cloud(ierr                                         &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'AGGREGATE_CLOUD'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF ( (i_cloud == ip_cloud_triple).OR.                                 &
        (i_cloud == ip_cloud_part_corr_cnv) ) THEN
@@ -161,7 +161,7 @@ SUBROUTINE aggregate_cloud(ierr                                         &
   END IF
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE aggregate_cloud
 END MODULE aggregate_cloud_mod

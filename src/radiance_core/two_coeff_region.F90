@@ -36,7 +36,7 @@ SUBROUTINE two_coeff_region(ierr, control                               &
   USE rad_pcf, ONLY: ip_solar, ip_region_clear, ip_direct_noscaling,    &
                      ip_direct_csr_scaling
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
   USE def_control, ONLY: StrCtrl
   USE two_coeff_mod, ONLY: two_coeff
@@ -197,7 +197,7 @@ SUBROUTINE two_coeff_region(ierr, control                               &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='TWO_COEFF_REGION'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Determine the optical properties of the clear-sky regions of
 ! the layers.
@@ -438,7 +438,7 @@ SUBROUTINE two_coeff_region(ierr, control                               &
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE two_coeff_region
 END MODULE two_coeff_region_mod

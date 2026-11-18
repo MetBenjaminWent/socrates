@@ -28,7 +28,7 @@ SUBROUTINE ir_source(n_profile, i_layer_first, i_layer_last             &
   USE realtype_rd, ONLY: RealK
   USE rad_pcf, ONLY: ip_scf_ir_1d, ip_scf_ir_2d
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -85,7 +85,7 @@ SUBROUTINE ir_source(n_profile, i_layer_first, i_layer_last             &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='IR_SOURCE'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Multiply the source coefficients by the Planckian differences
 ! to the order required.
@@ -118,7 +118,7 @@ SUBROUTINE ir_source(n_profile, i_layer_first, i_layer_last             &
   END IF
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE ir_source
 END MODULE ir_source_mod

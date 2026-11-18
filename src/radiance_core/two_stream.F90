@@ -55,7 +55,7 @@ SUBROUTINE two_stream(ierr                                              &
   USE rad_pcf, ONLY: ip_infra_red, ip_no_scatter_abs, ip_no_scatter_ext, &
                      ip_scatter_approx, ip_scatter_full
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
   USE column_solver_mod, ONLY: column_solver
   USE ir_source_mod, ONLY: ir_source
@@ -159,7 +159,7 @@ SUBROUTINE two_stream(ierr                                              &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'TWO_STREAM'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Calculate the two-stream coefficients.
   IF ( (i_scatter_method == ip_scatter_full) .OR.                       &
@@ -205,7 +205,7 @@ SUBROUTINE two_stream(ierr                                              &
     , nd_profile, nd_layer, nd_source_coeff)
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE two_stream
 END MODULE two_stream_mod

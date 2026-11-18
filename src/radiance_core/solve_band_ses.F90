@@ -102,7 +102,7 @@ SUBROUTINE solve_band_ses(ierr                                          &
   USE rad_pcf, ONLy: ip_solar, ip_infra_red, ip_surf_alb_diff,          &
                      ip_cloud_mcica, ip_two_stream, ip_ir_gauss
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
   USE augment_radiance_mod, ONLY: augment_radiance
   USE augment_tiled_radiance_mod, ONLY: augment_tiled_radiance
@@ -522,7 +522,7 @@ SUBROUTINE solve_band_ses(ierr                                          &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLVE_BAND_SES'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the appropriate boundary terms for the total
 ! upward and downward fluxes.
@@ -819,7 +819,7 @@ SUBROUTINE solve_band_ses(ierr                                          &
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solve_band_ses
 END MODULE solve_band_ses_mod

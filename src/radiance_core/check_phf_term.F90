@@ -41,7 +41,7 @@ SUBROUTINE check_phf_term(ierr                                          &
                      ip_slingo_schr_phf, ip_slingo_schrecker,           &
                      ip_slingo_schrecker_ice, ip_ice_pade_2_phf
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -129,7 +129,7 @@ SUBROUTINE check_phf_term(ierr                                          &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'CHECK_PHF_TERM'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Determine the order of terms for which information in the
 ! phase function will be required.
@@ -243,7 +243,7 @@ SUBROUTINE check_phf_term(ierr                                          &
     CALL ereport(RoutineName, ierr, cmessage)
   END IF
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE check_phf_term
 END MODULE check_phf_term_mod

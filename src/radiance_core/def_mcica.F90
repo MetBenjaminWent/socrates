@@ -62,7 +62,7 @@ SUBROUTINE read_mcica_data(mcica_data, filename, sp_sw, sp_lw)
 
 USE def_spectrum, ONLY: StrSpecData
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+USE vernier_timing_mod, ONLY: lprof_socrates
 USE parkind1, ONLY: jprb, jpim
 USE ereport_mod, ONLY : ereport
 
@@ -84,7 +84,7 @@ INTEGER            :: band, k, subcol
 INTEGER(KIND=vik) :: vnr_handle_1
 
 
-IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 OPEN(UNIT=iu_mcd, FILE=filename, IOSTAT=icode, STATUS='OLD')
 IF (icode /= 0) THEN
@@ -198,7 +198,7 @@ END DO
 
 CLOSE(iu_mcd)
 
-IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE read_mcica_data
 !------------------------------------------------------------------------------

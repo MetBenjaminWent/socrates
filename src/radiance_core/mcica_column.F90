@@ -66,7 +66,7 @@ SUBROUTINE mcica_column(ierr                                            &
                      ip_infra_red, ip_no_scatter_abs, ip_no_scatter_ext,&
                      ip_scatter_approx, ip_solar,  ip_scatter_full
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   USE set_n_source_coeff_mod, ONLY: set_n_source_coeff
@@ -253,7 +253,7 @@ SUBROUTINE mcica_column(ierr                                            &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'MCICA_COLUMN'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the number of source coefficients for the approximation
   n_source_coeff=set_n_source_coeff(isolir, l_ir_source_quad)
@@ -619,7 +619,7 @@ SUBROUTINE mcica_column(ierr                                            &
     DEALLOCATE(tau_abs)
   END IF
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE mcica_column
 END MODULE mcica_column_mod

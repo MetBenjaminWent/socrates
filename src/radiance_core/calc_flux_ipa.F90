@@ -60,7 +60,7 @@ SUBROUTINE calc_flux_ipa(ierr                                           &
                      ip_infra_red, ip_solar, ip_surf_alb_diff,          &
                      ip_surf_alb_dir
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
   USE copy_clr_full_mod, ONLY: copy_clr_full
   USE two_stream_mod, ONLY: two_stream
@@ -277,7 +277,7 @@ SUBROUTINE calc_flux_ipa(ierr                                           &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='CALC_FLUX_IPA'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Zero the output arrays ready for incrementing.
   DO i=1, 2*n_layer+2
@@ -561,7 +561,7 @@ SUBROUTINE calc_flux_ipa(ierr                                           &
   END IF
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_flux_ipa
 END MODULE calc_flux_ipa_mod

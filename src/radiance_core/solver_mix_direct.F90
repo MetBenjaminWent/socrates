@@ -31,7 +31,7 @@ SUBROUTINE solver_mix_direct(n_profile, n_layer, n_cloud_top            &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -156,7 +156,7 @@ SUBROUTINE solver_mix_direct(n_profile, n_layer, n_cloud_top            &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLVER_MIX_DIRECT'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Upward elimination through the cloudy layers.
   DO i=n_layer+1, 1, -1
@@ -328,7 +328,7 @@ SUBROUTINE solver_mix_direct(n_profile, n_layer, n_cloud_top            &
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solver_mix_direct
 END MODULE solver_mix_direct_mod

@@ -28,7 +28,7 @@ SUBROUTINE finalise_photol_incr( &
   USE def_atm, ONLY: StrAtm
 
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -80,7 +80,7 @@ SUBROUTINE finalise_photol_incr( &
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='FINALISE_PHOTOL_INCR'
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   ! Photolysis calculations that do not depend on sub-band
   i_gas_last=0
@@ -143,7 +143,7 @@ SUBROUTINE finalise_photol_incr( &
     END IF
   END DO
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE finalise_photol_incr
 END MODULE finalise_photol_incr_mod

@@ -28,7 +28,7 @@ SUBROUTINE calc_uplm_zero(ms_min, ms_max, ia_sph_mm                     &
   USE realtype_rd, ONLY: RealK
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -70,7 +70,7 @@ SUBROUTINE calc_uplm_zero(ms_min, ms_max, ia_sph_mm                     &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='CALC_UPLM_ZERO'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO ms=ms_min, ms_max
 
@@ -110,7 +110,7 @@ SUBROUTINE calc_uplm_zero(ms_min, ms_max, ia_sph_mm                     &
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_uplm_zero
 END MODULE calc_uplm_zero_mod

@@ -32,7 +32,7 @@ SUBROUTINE diff_albedo_basis(n_brdf_basis_fnc                           &
   USE realtype_rd, ONLY: RealK
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -90,7 +90,7 @@ SUBROUTINE diff_albedo_basis(n_brdf_basis_fnc                           &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='DIFF_ALBEDO_BASIS'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO j=1, n_brdf_basis_fnc
     diffuse_alb_basis(j)=0.0e+00_RealK
@@ -117,7 +117,7 @@ SUBROUTINE diff_albedo_basis(n_brdf_basis_fnc                           &
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE diff_albedo_basis
 END MODULE diff_albedo_basis_mod

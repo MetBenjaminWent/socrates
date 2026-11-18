@@ -30,7 +30,7 @@ SUBROUTINE opt_prop_inhom_corr_cairns(                                         &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -100,7 +100,7 @@ SUBROUTINE opt_prop_inhom_corr_cairns(                                         &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'OPT_PROP_INHOM_CORR_CAIRNS'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Apply inhomogeneity corrections to optical scattering parameters
 
@@ -137,7 +137,7 @@ SUBROUTINE opt_prop_inhom_corr_cairns(                                         &
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE opt_prop_inhom_corr_cairns
 END MODULE opt_prop_inhom_corr_cairns_mod

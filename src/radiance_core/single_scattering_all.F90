@@ -29,7 +29,7 @@ SUBROUTINE single_scattering_all(i_scatter_method_band                  &
   USE realtype_rd, ONLY: RealK
   USE def_ss_prop, ONLY: STR_ss_prop
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
   USE single_scattering_mod, ONLY: single_scattering
 
@@ -91,7 +91,7 @@ SUBROUTINE single_scattering_all(i_scatter_method_band                  &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SINGLE_SCATTERING_ALL'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Clear-sky properties:
 
@@ -130,7 +130,7 @@ SUBROUTINE single_scattering_all(i_scatter_method_band                  &
   END IF
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE single_scattering_all
 END MODULE single_scattering_all_mod

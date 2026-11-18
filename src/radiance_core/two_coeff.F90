@@ -34,7 +34,7 @@ SUBROUTINE two_coeff(ierr, control                                      &
   USE rad_pcf, ONLY: ip_solar
   USE vectlib_mod, ONLY : sqrt_v
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
   USE def_control, ONLY: StrCtrl
   USE solar_coefficient_basic_mod, ONLY: solar_coefficient_basic
@@ -139,7 +139,7 @@ SUBROUTINE two_coeff(ierr, control                                      &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='TWO_COEFF'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Calculate the basic two-stream coefficients. (The single
 ! scattering albedo has already been perturbed away from 1 in
@@ -187,7 +187,7 @@ SUBROUTINE two_coeff(ierr, control                                      &
     )
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE two_coeff
 END MODULE two_coeff_mod

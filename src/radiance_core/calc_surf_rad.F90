@@ -46,7 +46,7 @@ SUBROUTINE calc_surf_rad(n_profile, n_layer, tau                        &
   USE rad_pcf, ONLY: ip_solar, ip_infra_red
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -242,7 +242,7 @@ SUBROUTINE calc_surf_rad(n_profile, n_layer, tau                        &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='CALC_SURF_RAD'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! For each direction and observing level we calculate the
 ! contribution of the particular integral to the radiance
@@ -439,7 +439,7 @@ SUBROUTINE calc_surf_rad(n_profile, n_layer, tau                        &
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_surf_rad
 END MODULE calc_surf_rad_mod

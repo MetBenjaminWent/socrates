@@ -19,7 +19,7 @@ SUBROUTINE inter_t_lookup(nd_profile, nd_layer, nd_t_lookup_cont &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1,    ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -68,7 +68,7 @@ SUBROUTINE inter_t_lookup(nd_profile, nd_layer, nd_t_lookup_cont &
 
   CHARACTER(LEN=*), PARAMETER :: RoutineName='INTER_T_LOOKUP'
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 
   DO i=1, n_layer
@@ -88,6 +88,6 @@ SUBROUTINE inter_t_lookup(nd_profile, nd_layer, nd_t_lookup_cont &
     END DO
   END DO
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 END SUBROUTINE inter_t_lookup
 END MODULE inter_t_lookup_mod

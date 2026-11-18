@@ -24,7 +24,7 @@ SUBROUTINE solpos (orbit, year, day, seconds, timestep, sindec, eqt, scs, &
 USE realtype_rd, ONLY: RealK
 USE rad_ccf, ONLY: pi
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+USE vernier_timing_mod, ONLY: lprof_socrates
 USE parkind1, ONLY: jprb, jpim
 USE def_orbit, ONLY: StrOrbit, ip_smart, ip_mueller, ip_elements_user, &
   ip_elements_earth_fixed, ip_elements_earth_secular_variation, &
@@ -106,7 +106,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
 CHARACTER(LEN=*), PARAMETER   :: RoutineName='SOLPOS'
 
 
-IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 IF (PRESENT(l_observer)) THEN
   l_obs = l_observer
@@ -249,6 +249,6 @@ IF (l_obs) THEN
   END IF
 END IF
 
-IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 END SUBROUTINE solpos
 END MODULE solpos_mod

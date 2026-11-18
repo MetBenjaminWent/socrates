@@ -44,7 +44,7 @@ SUBROUTINE radiance_calc(control, dimen, spectrum, atm, cld, aer, bound, radout)
   USE rad_ccf,      ONLY: mol_weight_air
   USE errormessagelength_mod, ONLY: errormessagelength
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1,     ONLY: jprb, jpim
   USE ereport_mod,  ONLY: ereport
 
@@ -489,7 +489,7 @@ SUBROUTINE radiance_calc(control, dimen, spectrum, atm, cld, aer, bound, radout)
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'RADIANCE_CALC'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, RoutineName)
 
 
   CALL allocate_out(radout, control, dimen, spectrum)
@@ -2187,6 +2187,6 @@ SUBROUTINE radiance_calc(control, dimen, spectrum, atm, cld, aer, bound, radout)
     CALL ereport(RoutineName, ierr, cmessage)
   END IF
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE radiance_calc

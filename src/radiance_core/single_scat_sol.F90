@@ -39,7 +39,7 @@ SUBROUTINE single_scat_sol(n_profile, n_layer                           &
   USE realtype_rd, ONLY: RealK
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -164,7 +164,7 @@ SUBROUTINE single_scat_sol(n_profile, n_layer                           &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SINGLE_SCAT_SOL'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the tolerances used in avoiding ill-conditioning, testing
 ! on any variable.
@@ -335,7 +335,7 @@ SUBROUTINE single_scat_sol(n_profile, n_layer                           &
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE single_scat_sol
 END MODULE single_scat_sol_mod

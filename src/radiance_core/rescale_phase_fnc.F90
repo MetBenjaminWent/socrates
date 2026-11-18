@@ -25,7 +25,7 @@ SUBROUTINE rescale_phase_fnc(n_profile                                  &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -114,7 +114,7 @@ SUBROUTINE rescale_phase_fnc(n_profile                                  &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='RESCALE_PHASE_FNC'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO k=1, n_order_phase
     DO i=i_layer_first, i_layer_last
@@ -167,7 +167,7 @@ SUBROUTINE rescale_phase_fnc(n_profile                                  &
   END IF
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE rescale_phase_fnc
 END MODULE rescale_phase_fnc_mod

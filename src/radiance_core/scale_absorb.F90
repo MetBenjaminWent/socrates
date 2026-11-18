@@ -34,7 +34,7 @@ SUBROUTINE scale_absorb(ierr, n_profile, n_layer                        &
   USE vectlib_mod, ONLY : rtor_v
   USE scale_wenyi, ONLY: plg, ttb, tto, gk250b, gk4, gk6
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -109,7 +109,7 @@ SUBROUTINE scale_absorb(ierr, n_profile, n_layer                        &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'SCALE_ABSORB'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Set the offset to the pressure for the Doppler correction.
   IF (l_doppler) THEN
@@ -169,7 +169,7 @@ SUBROUTINE scale_absorb(ierr, n_profile, n_layer                        &
 
   ELSE IF (i_fnc == ip_scale_fnc_null) THEN
 
-    IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
     RETURN
 
   ELSE IF (i_fnc == ip_scale_power_quad) THEN
@@ -280,7 +280,7 @@ SUBROUTINE scale_absorb(ierr, n_profile, n_layer                        &
     CALL ereport(RoutineName, ierr, cmessage)
   END IF
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE scale_absorb
 END MODULE scale_absorb_mod

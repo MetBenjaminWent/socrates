@@ -24,7 +24,7 @@ SUBROUTINE set_matrix_pentadiagonal(n_profile, n_layer                  &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -77,7 +77,7 @@ SUBROUTINE set_matrix_pentadiagonal(n_profile, n_layer                  &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SET_MATRIX_PENTADIAGONAL'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! The top boundary condition:
   DO l=1, n_profile
@@ -120,7 +120,7 @@ SUBROUTINE set_matrix_pentadiagonal(n_profile, n_layer                  &
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE set_matrix_pentadiagonal
 END MODULE set_matrix_pentadiagonal_mod

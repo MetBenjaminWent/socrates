@@ -41,7 +41,7 @@ SUBROUTINE augment_tiled_radiance(control, spectrum, radout             &
                      ip_spherical_harmonic, ip_surf_alb_diff,           &
                      ip_surf_alb_dir, ip_two_stream
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
   USE ereport_mod, ONLY: ereport
   USE errormessagelength_mod, ONLY: errormessagelength
@@ -128,7 +128,7 @@ SUBROUTINE augment_tiled_radiance(control, spectrum, radout             &
   CHARACTER (LEN=*), PARAMETER  :: RoutineName = 'AUGMENT_TILED_RADIANCE'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   IF (control%l_map_sub_bands) THEN
     ! Increment the fluxes with sub-bands mapping to channels
@@ -171,7 +171,7 @@ SUBROUTINE augment_tiled_radiance(control, spectrum, radout             &
     CALL augment_channel_tile()
   END IF
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 
 CONTAINS

@@ -20,7 +20,7 @@ USE def_bound,              ONLY: StrBound
 USE def_spherical_geometry, ONLY: StrSphGeo
 USE parkind1,               ONLY: jprb, jpim
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+USE vernier_timing_mod, ONLY: lprof_socrates
 
 IMPLICIT NONE
 
@@ -57,7 +57,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
 CHARACTER(LEN=*), PARAMETER :: RoutineName='SPHERICAL_PATH'
 
 
-IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! First deal with the path for beams leaving the top-of-atmosphere (TOA).
 ! Only consider radiation from below.
@@ -247,7 +247,7 @@ DO ii = 0, atm%n_layer+1
   END DO
 END DO
 
-IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE spherical_path
 END MODULE spherical_path_mod

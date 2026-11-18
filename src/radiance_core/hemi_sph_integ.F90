@@ -37,7 +37,7 @@ SUBROUTINE hemi_sph_integ(ls_trunc, ms, uplm_zero                       &
   USE realtype_rd, ONLY: RealK
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -76,7 +76,7 @@ SUBROUTINE hemi_sph_integ(ls_trunc, ms, uplm_zero                       &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='HEMI_SPH_INTEG'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! The outer loop is over l' where l'+m is odd. Indexing is done
 ! using the reduced indices l'+1-m and l+1-m.
@@ -90,7 +90,7 @@ SUBROUTINE hemi_sph_integ(ls_trunc, ms, uplm_zero                       &
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE hemi_sph_integ
 END MODULE hemi_sph_integ_mod

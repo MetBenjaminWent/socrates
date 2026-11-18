@@ -33,7 +33,7 @@ SUBROUTINE calc_top_rad(n_profile, tau                                  &
   USE realtype_rd, ONLY: RealK
   USE rad_ccf, ONLY: pi
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -109,7 +109,7 @@ SUBROUTINE calc_top_rad(n_profile, tau                                  &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='CALC_TOP_RAD'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! Calculate the cumulative optical depth from the
 ! top of the atmosphere to each viewing level.
@@ -150,7 +150,7 @@ SUBROUTINE calc_top_rad(n_profile, tau                                  &
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE calc_top_rad
 END MODULE calc_top_rad_mod

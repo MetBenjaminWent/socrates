@@ -33,7 +33,7 @@ SUBROUTINE solver_triple(n_profile, n_layer, n_cloud_top                &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -214,7 +214,7 @@ SUBROUTINE solver_triple(n_profile, n_layer, n_cloud_top                &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLVER_TRIPLE'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 ! This routine is specific to cases of three regions and it is
 ! assumed that 1 represents clear skies, 2 represents startiform
@@ -506,7 +506,7 @@ SUBROUTINE solver_triple(n_profile, n_layer, n_cloud_top                &
   END DO
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solver_triple
 END MODULE solver_triple_mod

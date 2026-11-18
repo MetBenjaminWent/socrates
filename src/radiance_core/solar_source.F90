@@ -28,7 +28,7 @@ SUBROUTINE solar_source(control, bound, n_profile, n_layer              &
                          ip_scf_solar_down,ip_scf_solar_up
   USE parkind1, ONLY: jprb, jpim
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
 
   IMPLICIT NONE
 
@@ -99,7 +99,7 @@ SUBROUTINE solar_source(control, bound, n_profile, n_layer              &
   CHARACTER(LEN=*), PARAMETER :: RoutineName='SOLAR_SOURCE'
 
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO l=1, n_profile
     flux_direct(l, 0)=flux_inc_direct(l)
@@ -203,7 +203,7 @@ SUBROUTINE solar_source(control, bound, n_profile, n_layer              &
   END IF
 
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE solar_source
 END MODULE solar_source_mod

@@ -9,7 +9,7 @@ MODULE vernier_timing_mod
 
   IMPLICIT NONE
 
-  LOGICAL, PARAMETER :: LPROF_SOCRATES = .FALSE.
+  LOGICAL, PARAMETER :: lprof_socrates = .FALSE.
 
 END MODULE vernier_timing_mod
 #endif

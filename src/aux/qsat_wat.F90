@@ -19,7 +19,7 @@
       USE rad_ccf, ONLY: mol_weight_air
       USE gas_list_pcf, ONLY: molar_weight, ip_h2o
       USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-      USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+      USE vernier_timing_mod, ONLY: lprof_socrates
       USE parkind1, ONLY: jprb, jpim
       IMPLICIT NONE
 !
@@ -484,7 +484,7 @@
      &0.244611E+05,0.245712E+05,0.246814E+05,0.247923E+05,0.249034E+05, &
      &0.250152E+05,0.250152E+05/
 
-      IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, RoutineName)
+      IF (lprof_socrates) CALL vernier_start(vnr_handle_1, RoutineName)
 
       REPSILON = molar_weight(ip_h2o)*1.0E-03_RealK / mol_weight_air
       ONE_MINUS_EPSILON = 1.0 - REPSILON
@@ -536,7 +536,7 @@
       END DO ! Npnts_do_1
 !$OMP END PARALLEL DO
 !
-      IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+      IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
       RETURN
       END SUBROUTINE QSAT_WAT
 ! ======================================================================

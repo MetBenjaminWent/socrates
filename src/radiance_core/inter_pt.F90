@@ -26,7 +26,7 @@ SUBROUTINE inter_pt(nd_profile, nd_layer                                &
 
   USE realtype_rd, ONLY: RealK
   USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-  USE vernier_timing_mod, ONLY: LPROF_SOCRATES
+  USE vernier_timing_mod, ONLY: lprof_socrates
   USE parkind1, ONLY: jprb, jpim
 
   IMPLICIT NONE
@@ -232,7 +232,7 @@ REAL, PARAMETER ::       &
    5.36000e+00, 5.56000e+00, 5.76000e+00, 5.96000e+00, 6.16000e+00,     &
    6.36000e+00, 6.56000e+00, 6.76000e+00, 6.96000e+00/
 
-  IF (LPROF_SOCRATES) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+  IF (lprof_socrates) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
   DO i=1, n_layer
     DO l=1, n_profile
@@ -312,6 +312,6 @@ REAL, PARAMETER ::       &
     END DO
   END DO
 
-  IF (LPROF_SOCRATES) CALL vernier_stop(vnr_handle_1)
+  IF (lprof_socrates) CALL vernier_stop(vnr_handle_1)
 END SUBROUTINE inter_pt
 END MODULE inter_pt_mod
